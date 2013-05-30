@@ -1,0 +1,27 @@
+{{> parts/nav/nav}}
+<div class="container container-top">
+  <legend>
+    View Users
+  </legend>
+  {{#users}}
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>{{username}} {{#first_name}}- {{first_name}} {{last_name}}{{/first_name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          {{^user.admin}}<a href="/users/{{username}}/edit" class="btn btn-primary btn-small">Edit my account</a>{{/user.admin}}
+          {{#user.admin}}<a href="/users/{{username}}/edit" class="btn btn-primary btn-small">Edit</a>{{/user.admin}}
+          {{#user.admin}}<a href="/users/{{username}}/remove" class="btn btn-danger btn-small pull-right">Remove</a>{{/user.admin}}
+          {{#user.admin}}&nbsp;<a href="/users/{{username}}/uplift" class="btn btn-info btn-small">Promote {{username}}</a>{{/user.admin}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  {{/users}}
+  {{#user.admin}}<a href="add" class="btn btn-mini">Create</a> <a href="/api/users/view" class="btn btn-primary btn-mini">Switch to JSON View</a> {{/user.admin}}
+</div>

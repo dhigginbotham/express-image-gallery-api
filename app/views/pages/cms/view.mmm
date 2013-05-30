@@ -3,9 +3,22 @@
   <legend>
     View Pages
   </legend>
-  {{> parts/view/pages}}
-  
-  {{#pages.pagination}}
-    {{> parts/paging}}
-  {{/pages.pagination}}
+  {{#pages}}
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>{{title}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="/pages/{{_id}}" class="btn btn-primary btn-small">View</a>
+          {{#user.admin}}<a href="/pages/{{_id}}/edit" class="btn btn-primary btn-small">Edit</a>{{/user.admin}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  {{/pages}}
 </div>

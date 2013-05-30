@@ -42,7 +42,7 @@ users = module.exports =
 
     view: (req, res) ->
 
-      res.render "pages/view",
+      res.render "pages/view/users",
         title: "View Users"
         user: req.user
         users: req._users

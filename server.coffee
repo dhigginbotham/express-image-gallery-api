@@ -120,7 +120,7 @@ app.post "/pages/add", pass.ensureAuthenticated, pass.ensureAdmin, pages_validat
 app.get "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.findOne, pagesController.edit
 app.post "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.editPage, (req, res) ->
   res.redirect req.get "Referer"
-app.get "/pages/:id", scripts.embed, pages_middleware.findOne, pagesController.single 
+app.get "/pages/:id", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single 
 
 # go!
 server.listen app.get("port"), () ->

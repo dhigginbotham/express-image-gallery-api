@@ -15,6 +15,8 @@ NavLoader = module.exports =
 
     admin: [
       {std : null, id : 'welcome', icon : 'home', cur : null, href : '/', token : null}
+      {std : 'Pages', id : 'pages', icon : null, cur : null, href : '/pages/view', token : null}
+      {std : 'Add a Page', id : 'pages', icon : null, cur : null, href : '/pages/add', token : null}
       {std : 'Accounts', id : 'accounts', icon : null, cur : null, href : '/users/view', token : null}
       {std : 'Logout', id : 'logout', icon : null, cur : null, href : '/logout', token : null}
     ]
