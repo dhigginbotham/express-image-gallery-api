@@ -35,15 +35,6 @@
         <label for="last_name">Last Name: </label>
         <input type="text" class="span3" style="max-width: 100%; display: inline-block;" name="last_name" {{#edit}}value="{{last_name}}"{{/edit}}>
         <br>
-        <label for="zip">Zip: </label>
-        <input type="text" class="span3" style="max-width: 100%; display: inline-block;" name="zip" id="zip" {{#edit}}value="{{zip}}"{{/edit}}>
-        <br>
-        <label for="phone">Phone: </label>
-        <input type="text" class="span3" style="max-width: 100%; display: inline-block;" name="phone" id="phone" {{#edit}}value="{{phone}}"{{/edit}}>
-        <hr>
-        <label class="checkbox">
-          <input type="checkbox" name="verifiedTxtMsg" {{#edit}}{{#verifiedTxtMsg}} checked{{/verifiedTxtMsg}}{{/edit}}> Would you like to opt-in and receive future messages? 
-        </label>
         <p><i class="icon-asterisk"></i> indicates required field</p>
         {{#user.admin}}
           <hr>
