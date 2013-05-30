@@ -1,0 +1,11 @@
+{{> parts/nav/nav}}
+<div class="container">
+  <legend>
+    View Pages
+  </legend>
+  {{> parts/view/pages}}
+  
+  {{#pages.pagination}}
+    {{> parts/paging}}
+  {{/pages.pagination}}
+</div>

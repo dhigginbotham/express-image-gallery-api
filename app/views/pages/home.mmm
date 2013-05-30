@@ -1,0 +1,9 @@
+{{> parts/nav/nav}}
+
+<div class="container">
+  <div class="jumbotron">
+    <h1><i class="icon-camera"></i> Express Image Gallery &amp; API</h1>
+    <p>Upload, Search and View images, a lot to come..</p>
+  </div>
+</div>
+

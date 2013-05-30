@@ -1,0 +1,36 @@
+  <div class="container">
+    <div class="pagination pull-right">
+      <ul class="well well-small">
+        <li><a {{#page.isCurrent}}class="disabled active" {{/page.isCurrent}} href="/apps/view/1">First</a></li>
+        {{#pages}}
+          {{^isInner}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="/apps/view/{{page}}">{{page}}</a></li>{{/isInner}}
+          {{#isInner}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="#">...</a></li>{{/isInner}}
+        {{/pages}}
+      </ul>
+    </div>
+  </div>
+
+{{! { pages:
+   [ { page: 1,
+       isFirst: true,
+       isLast: false,
+       isCurrent: true,
+       isPrevious: false,
+       isNext: false,
+       inLeftOuter: true,
+       inRightOuter: false,
+       inInner: true,
+       isSeparator: false,
+       nextPage: [Object] },
+     { page: 2,
+       isFirst: false,
+       isLast: true,
+       isCurrent: false,
+       isPrevious: false,
+       isNext: true,
+       inLeftOuter: false,
+       inRightOuter: true,
+       inInner: true,
+       isSeparator: false,
+       previousPage: [Object] } ],
+  render: [Function: render] } }}

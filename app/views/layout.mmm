@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+    <title>mGive - Social Share {{ meta.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="mgive.com">
+    {{> parts/que/header-scripts}}
+    <!--[if lt IE 8]>
+      <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome-ie7.css" rel="stylesheet">
+    <![endif]-->
+  </head>
+  <body>
+  {{> content}}
+  <div class="container">
+    <hr>
+    <footer>
+      <p><a href="/"><i class="icon-home">&nbsp;</i></a></p>
+    </footer>
+  </div>
+  {{> parts/que/footer-scripts}}
+  </body>
+</html>
