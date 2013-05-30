@@ -1,6 +1,10 @@
 express = require "express"
 sockjs = require "sockjs"
 flash = require "connect-flash"
+
+if process.env.NODE_ENV == "development"
+  # process.env.NODE_PASS = "some-pass"
+  process.env.NODE_SEED = true
  
 sockjs_opts = sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js"
 sockjs_echo = sockjs.createServer sockjs_opts

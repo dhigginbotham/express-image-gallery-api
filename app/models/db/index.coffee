@@ -6,7 +6,7 @@ paginate = require('paginate')({
 # debug setting for development
 mongoose.set "debug", true if process.env.NODE_ENV == "development"
 
-DB_CONNECTION_STRING = process.env.MGIVE_STRING || "mongodb://localhost/imgapi"
+DB_CONNECTION_STRING = process.env.DB_CONNECTION || "mongodb://localhost/imgapi"
 db = global.db = mongoose.createConnection(DB_CONNECTION_STRING);
 
 db.on "error", console.error.bind console, "connection error:"
