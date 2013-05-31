@@ -1,6 +1,7 @@
-async = require "async"
-
 scripts = module.exports =
+  settings:
+    verbose: true # set this to false to turn off verbosity
+    internal: true # this will accept an external array, doesn't work yet... intentions are there.
   items: [
     {src: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css', name: 'bootstrap.css', where: 'head', uri: null, type: 'css', exclude: null}
     {src: '//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css', name: 'font-awesome.css', where: 'head', uri: null, type: 'css', exclude: null}
@@ -18,7 +19,7 @@ scripts = module.exports =
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
     {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: '/', type: 'js', exclude: null}
-    {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null}
+    # {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null} # need to get this sorted differently I suppose..
     {src: '/css/vendor/basic.css', name: 'basic.css', where: 'head', uri: '/', type: 'css', exclude: null}
   ]
 
@@ -54,11 +55,12 @@ scripts = module.exports =
     reset = '\x1B[39m'
     count = 1
     script = scripts.items
+
+    # run a debug log, this should be a constant while in development mode.
     scripts.logging script, req, (count) ->
-      console.log "\r\n\r\n      #{cyan}Included#{reset} - #{count} of #{scripts.items.length} #{cyan}files for url:#{reset} [ #{req.url} ]#{reset}\r\n\r\n" if process.env.NODE_ENV == "development"
-
-
-    bool = {}
+      console.log "\r\n" if scripts.settings.verbose == true
+      console.log "      #{cyan}Included#{reset} #{count} of #{scripts.items.length} #{cyan}files for url:#{reset} [ #{req.url} ]#{reset}" if process.env.NODE_ENV == "development"
+      console.log "\r\n" if scripts.settings.verbose == true
 
     Object.create embed =
       head:
@@ -68,12 +70,13 @@ scripts = module.exports =
         js: []
         css: []
     
-    console.log "      "  if process.env.NODE_ENV == "development"
+    console.log "\r\n\r\n      #{cyan}[->#{reset} !!! - DEBUG OUTPUT FOR INCLUDES - !!! #{cyan}<-]#{reset}\r\n\r\n"  if scripts.settings.verbose == true
+    
     for ctx in script
       do (ctx) ->
         if (embed.head[ctx.type] || embed.foot[ctx.type]) && ( ctx.uri == req.route.path || ctx.uri == null ) and ctx.exclude != req.route.path
-          console.log "      #{red}#{count} - Excluding #{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
-          console.log "      #{cyan}#{count} - Including #{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
+          console.log "      #{red}#{count} - Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and scripts.settings.verbose is true
+          console.log "      #{cyan}#{count} - Including:#{reset} #{ctx.name} into #{ctx.where}er" if scripts.settings.verbose is true
           count++
           process.nextTick () ->
             embed[ctx.where][ctx.type].push ctx
