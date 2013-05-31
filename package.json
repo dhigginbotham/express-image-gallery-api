@@ -1,7 +1,7 @@
 {
   "name": "express-image-gallery-api",
   "description": "node, express, mongoose and sockjs image gallery/library/search with restful api stack using bausics",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "license": "MIT",
   "author": "David Higginbotham <david@hillsoft.com>",
   "dependencies": {
