@@ -8,10 +8,7 @@ FacebookStrategy = require("passport-facebook").Strategy
 # require user schema
 User = require "../app/models/users"
 
-if process.env.NODE_ENV == "production"
-  FACEBOOK_APP_ID = "442270375864236"
-  FACEBOOK_APP_SECRET = "c7a2a0d87a773103c017eea7fd4cb06a"
-else
+if process.env.NODE_ENV == "development"
   FACEBOOK_APP_ID = "456946017732211"
   FACEBOOK_APP_SECRET = "47436dae949615733ac56357b5572d45"
 
@@ -24,7 +21,7 @@ passport.deserializeUser (obj, done) ->
 if process.env.NODE_ENV is "development"
   redirect_url = "http://localhost:3001"
 else
-  redirect_url = process.env.FB_REDIRECT_URL || "https://mgive.nodejitsu.com"
+  redirect_url = process.env.FB_REDIRECT_URL
 
 passport.use new FacebookStrategy
   clientID: FACEBOOK_APP_ID

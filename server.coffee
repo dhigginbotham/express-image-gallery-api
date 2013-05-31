@@ -82,6 +82,10 @@ app.configure () ->
 
 # index route
 app.get "/", scripts.embed, nav.render, mainController.index
+app.post "/", scripts.embed, nav.render, (req, res, next) ->
+  console.log req.body
+  next()
+, mainController.index
 
 # tests and shit
 app.get "/tests", scripts.embed, nav.render, mainController.tests

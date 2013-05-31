@@ -15,6 +15,7 @@ scripts = module.exports =
     # test routes
     if process.env.NODE_ENV == "development"
       {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
+      {src: '/js/lib/dropfolder.js', name: 'dropfolder.js', where: 'foot', uri: '/', type: 'js', exclude: null}
   ]
 
   embed: (req, res, next) ->
