@@ -154,6 +154,8 @@ app.get "/tags/:slug", scripts.embed, nav.render, tags_middleware.findOne, tagsC
 # images routes
 app.get "/images", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
 app.get "/images/:id/edit", scripts.embed, nav.render, tags_middleware.findAll, images_middleware.findOne, imagesController.edit
+app.post "/images/:id/edit", images_middleware.editImg, (req, res) ->
+  res.redirect req.get "Referer"
 
 app.get "/images/:page", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
 

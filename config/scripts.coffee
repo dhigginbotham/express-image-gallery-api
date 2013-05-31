@@ -7,22 +7,26 @@ scripts = module.exports =
     {src: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', name: 'jquery.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js', name: 'bootstrap.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: 'http://cdn.sockjs.org/sockjs-0.3.min.js', name: 'sockjs.js', where: 'foot', uri: null, type: 'js', exclude: null}
+    
     # pages routes
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/pages/:slug/edit', type: 'js', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
-    {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/:slug/edit', type: 'js', exclude: null}
+    # image routes
+    {src: '/js/lib/tags.class.js', name: 'tags.class.js', where: 'foot', uri: '/images/:id/edit', type: 'js', exclude: null}
+    # tag routes
+    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
+    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
+    {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
+    
     # test routes
-    {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
+    # {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: '/', type: 'js', exclude: null}
     {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null}
     {src: '/css/vendor/basic.css', name: 'basic.css', where: 'head', uri: '/', type: 'css', exclude: null}
   ]
-
   embed: (req, res, next) ->
     # written by david higginbotham, didn't really need to much
     # or something as built out like require.js so I wrote this
@@ -49,7 +53,6 @@ scripts = module.exports =
       foot:
         js: []
         css: []
-
     for ctx in script
       do (ctx) ->
         process.nextTick () ->

@@ -6,7 +6,7 @@ path = require "path"
 
 _images = module.exports =
   handle: (req, res, next) ->
-    console.log req.files.file.filename
+
     img = new Image
       name: req.files.file.name
       type: req.files.file.type
@@ -14,16 +14,35 @@ _images = module.exports =
       path: req.files.file.path
       size: req.files.file.size
       who: req.user
+      tags: req.body.tags
 
     img.save (err, image) ->
       return next err, null if err
-      if image
-        console.log image
-      process.nextTick () ->
-        next()
+      next()
+  editImg: (req, res, next) ->
+    console.log req.body
+    if req.body? && req.body.title?
+      if req.body.published? && req.body.published == "on"
+        published = true
+      else
+        published = true
+
+      img =
+        title: req.body.title
+        published: published
+
+      Image.update _id: req.params.id, img, safe: true, (err, img) ->
+        if err?
+          req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
+          next()
+        if img?
+          req.flash "info", type: "success", title: "Awesome", msg: "You made a img!"
+          req._img = img
+        process.nextTick () ->
+          next()
   findOne: (req, res, next) ->
-    Image.findOne(_id: req.params.id).populate('who tags').exec (err, image) ->
-      if err
+    Image.findOne(_id: req.params.id).populate("who tags").exec (err, image) ->
+      if err?
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
       if image?

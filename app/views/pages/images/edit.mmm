@@ -10,7 +10,7 @@
       <div class="control-group span10">
         <label for="control-label">Page Title</label>
         <div class="controls">
-          <input type="text" id="image_title" class="input input-block-level" name="image_title"{{#edit}} value="{{title}}"{{/edit}} data-validation-required-message="Your page needs a title" required/>
+          <input type="text" id="title" class="input input-block-level" name="title" value="{{title}}" data-validation-required-message="Your page needs a title" required/>
           <p class="help-block"></p>
         </div>
       </div>
@@ -18,7 +18,7 @@
     {{! start published }}
       <div class="control-group span2">
         <div class="controls">
-          <label class="checkbox inline"><input type="checkbox" name="image_published" value="true" checked> Published / Visible?</label>
+          <label class="checkbox inline"><input type="checkbox" name="published" value="true" checked> Published / Visible?</label>
         </div>
       </div>
     {{! end published }}    
@@ -37,20 +37,20 @@
   {{/images}}
 
     {{! start tags }}
-      <div class="control-group span4">
+      <div class="span4">
         <label for="control-label">Tags:</label>
-        <div class="controls">
-          <ul>
-            {{#tags}}
-            <li>{{title}}</li>
-            {{/tags}}
-          </ul>
-          <p class="help-block"></p>
-        </div>
+        <input type="text" id="tagInput" />
+        <div id="tagContainer"></div>
       </div>
     {{! end tags }}
 
     </div>
+    <div class="form-actions">
+      {{#images}}<button type="submit" class="btn btn-primary" data-loading-text="Updating..."><i class="icon-ok"></i> Update</button>{{/images}}
+      {{^images}}<button type="submit" class="btn btn-primary" data-loading-text="Creating..."><i class="icon-ok"></i> Add</button>{{/images}}
+      {{#images}}<a href="remove" class="btn btn-inverse pull-right" data-loading-text="Removing...">Remove App</a>{{/images}}
+    </div>
+
   </form>
 
 </div>

@@ -13,7 +13,7 @@ _images = module.exports =
       prefix: "images"
 
   edit: (req, res) ->
-
+    
     res.render "pages/images/edit",
       user: req.user
       nav: req._navObj
