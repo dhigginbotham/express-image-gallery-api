@@ -11,8 +11,7 @@
         s = tagsClass.settings;
         s.elem = elem;
         s.tags = tags;
-        tagsClass.renderExistingTags(tags);
-        return tagsClass.bind();
+        return tagsClass.renderExistingTags(tags);
       },
       renderLabel: function(text) {
         var html;
@@ -22,19 +21,20 @@
         return tagsClass.cleanUp();
       },
       renderExistingTags: function(tags) {
-        var t, _i, _len, _results;
+        var t, _fn, _i, _len;
 
-        _results = [];
+        _fn = function(t) {
+          return tagsClass.renderLabel(t);
+        };
         for (_i = 0, _len = tags.length; _i < _len; _i++) {
           t = tags[_i];
-          _results.push((function(t) {
-            return tagsClass.renderLabel(t);
-          })(t));
+          _fn(t);
         }
-        return _results;
+        return tagsClass.bind();
       },
       bind: function() {
-        return $("#" + s.elem.input).on("change", function() {
+        return $("#" + s.elem.input).on("change", function(e) {
+          e.preventDefault();
           return tagsClass.renderLabel($(this).val());
         });
       },
