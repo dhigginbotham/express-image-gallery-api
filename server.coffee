@@ -96,7 +96,7 @@ app.configure () ->
   app.use express.static path.join __dirname, "public"
 
 # index route
-app.get "/", scripts.embed, nav.render, mainController.index
+app.get "/", nav.render, scripts.embed, mainController.index
 
 # tests and shit
 app.get "/tests", scripts.embed, nav.render, mainController.tests

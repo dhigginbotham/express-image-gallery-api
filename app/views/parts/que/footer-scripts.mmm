@@ -1,3 +1,4 @@
 <!-- //footer-scripts -->
 {{#que.foot.js}}<script src="{{src}}"></script><!-- ^- {{name}} -->{{/que.foot.js}}
+
 {{#que.foot.css}}<link href="{{src}}" rel="stylesheet"><!-- ^- {{name}} -->{{/que.foot.css}}
