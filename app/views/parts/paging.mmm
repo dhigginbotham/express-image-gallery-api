@@ -1,14 +1,14 @@
-  <div class="container">
-    <div class="pagination pull-right">
-      <ul class="well well-small">
-        <li><a {{#page.isCurrent}}class="disabled active" {{/page.isCurrent}} href="/apps/view/1">First</a></li>
-        {{#pages}}
-          {{^isInner}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="/apps/view/{{page}}">{{page}}</a></li>{{/isInner}}
-          {{#isInner}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="#">...</a></li>{{/isInner}}
-        {{/pages}}
-      </ul>
-    </div>
-  </div>
+<div class="pagination pull-right">
+  <ul class="well well-small">
+    <li><a {{#pagination.page.isCurrent}}class="disabled active" {{/pagination.page.isCurrent}} href="/{{prefix}}/{{page}}">First</a></li>
+    {{#pages}}
+      {{#isFirst}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="/{{prefix}}/{{page}}">{{page}}</a></li>{{/isFirst}}
+      {{^isInner}}{{^isFirst}}{{^isLast}}{{^isCurrent}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="/{{prefix}}/{{page}}">{{page}}</a></li>{{/isCurrent}}{{/isLast}}{{/isFirst}}{{/isInner}}
+      {{^isInner}}{{#isSeparator}}{{^isFirst}}{{^isLast}}{{^isCurrent}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="/{{prefix}}/{{page}}">...</a></li>{{/isCurrent}}{{/isLast}}{{/isFirst}}{{/isSeparator}}{{/isInner}}
+      {{#isLast}}<li><a {{#isCurrent}}class="disabled active" {{/isCurrent}} href="/{{prefix}}/{{page}}">Last</a></li>{{/isLast}}
+    {{/pages}}
+  </ul>
+</div>
 
 {{! { pages:
    [ { page: 1,

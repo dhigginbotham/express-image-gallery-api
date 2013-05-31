@@ -51,9 +51,9 @@ scripts = module.exports =
     for ctx in script
       do (ctx) ->
         if embed.head[ctx.type] || embed.foot[ctx.type]
-          # console.log "#{red}Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
+          console.log "#{red}Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
           if ( ctx.uri == req.route.path || ctx.uri == null ) and ctx.exclude != req.route.path
-            # console.log "#{cyan}Including:#{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
+            console.log "#{cyan}Including:#{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
             embed[ctx.where][ctx.type].push ctx
 
     process.nextTick () ->

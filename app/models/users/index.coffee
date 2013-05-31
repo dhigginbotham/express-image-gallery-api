@@ -31,14 +31,17 @@ UserSchema = new Schema
   token: String
   zip: String
   phone: String
-  verifiedTxtMsg:
-    type: Boolean
-    default: false
   location: Object
   last_login: 
     type: Date
     default: Date.now
   source: String
+  active: 
+    type: Boolean
+    default: true
+  role:
+    type: Number
+    default: 0
 
 UserSchema.pre "save", (next) ->
   user = this
@@ -61,7 +64,6 @@ UserSchema.methods.comparePassword = (candidatePassword, cb) ->
     if err
       return cb(err)
     cb null, isMatch
-
 
 User = module.exports = db.model "User", UserSchema
 

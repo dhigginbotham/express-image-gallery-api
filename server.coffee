@@ -67,7 +67,7 @@ app.configure () ->
       dumpExceptions: true
       showStack: true
   # app.use express.favicon(__dirname + "/public/img/icon.ico")
-  app.use express.bodyParser keepExtensions: true, uploadDir: path.join __dirname, "public", "uploads"
+  app.use express.bodyParser keepExtensions: true, uploadDir: "./public/uploads" # path.join __dirname, "public", "uploads"
   app.use express.methodOverride()
   app.use express.cookieParser()
   # using cooking sessions to improve overall speed
@@ -130,7 +130,11 @@ app.post "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.
   res.redirect req.get "Referer"
 app.get "/pages/:id", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single
 
-app.post "/upload", imagesController.upload
+# images routes
+app.get "/images", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
+app.get "/images/:page", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
+
+app.post "/upload", images_middleware.handle, imagesController.upload
 
 # go!
 server.listen app.get("port"), () ->

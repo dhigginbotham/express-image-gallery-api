@@ -3,6 +3,7 @@ mongoose = require "mongoose"
 paginate = require('paginate')({
     mongoose: mongoose
 });
+
 # debug setting for development
 mongoose.set "debug", true if process.env.NODE_ENV == "development"
 

@@ -6,5 +6,4 @@ node_modules/*
 npm-debug.log
 
 # public uploads folder
-public/uploads/
-public/uploads/*
+public/uploads/*.*

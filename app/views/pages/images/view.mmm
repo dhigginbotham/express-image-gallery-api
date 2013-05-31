@@ -1,0 +1,23 @@
+{{> parts/nav/nav}}
+
+<div class="container">
+  <legend>
+    View Images
+  </legend>
+  <table class="table table-bordered table-striped">
+    <tbody>
+  {{#images}}
+      <tr>
+        <td>
+          <img src="/uploads/{{unique}}" alt="{{title}}">
+        </td>
+      </tr>
+  {{/images}}
+    </tbody>
+  </table>
+  <br>
+  {{#images.pagination}}
+    {{> parts/paging}}
+  {{/images.pagination}}
+
+</div>
