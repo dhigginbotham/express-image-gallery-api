@@ -23,6 +23,18 @@
       </div>
 
       <div class="row">
+      {{! page slug }}
+        <div class="control-group span12">
+          <label for="control-label">Slug</label>
+          <div class="controls">
+            <input type="text" id="page_slug" class="input input-block-level" name="page_slug"{{#edit}} value="{{slug}}"{{/edit}} data-validation-required-message="Your page needs a slug" required/>
+            <p class="help-block"></p>
+          </div>
+        </div>
+      {{! /page slug }}
+      </div>
+
+      <div class="row">
       {{! page content }}
         <div class="control-group span12">
           <label for="control-label">Page Content</label>

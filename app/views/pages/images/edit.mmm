@@ -1,0 +1,52 @@
+{{>parts/nav/nav}}
+
+<div class="container">
+
+  {{#images}}
+  <form method="post" enctype="multipart/form-data" id="editImgForm">
+    <legend>Edit Image Data</legend>
+    <div class="row">
+    {{! page title }}
+      <div class="control-group span10">
+        <label for="control-label">Page Title</label>
+        <div class="controls">
+          <input type="text" id="image_title" class="input input-block-level" name="image_title"{{#edit}} value="{{title}}"{{/edit}} data-validation-required-message="Your page needs a title" required/>
+          <p class="help-block"></p>
+        </div>
+      </div>
+    {{! /page title }}
+    {{! start published }}
+      <div class="control-group span2">
+        <div class="controls">
+          <label class="checkbox inline"><input type="checkbox" name="image_published" value="true" checked> Published / Visible?</label>
+        </div>
+      </div>
+    {{! end published }}    
+    </div>
+
+    <div class="row">
+    {{! start image }}
+      <div class="control-group span8">
+        <label for="control-label">Image:</label>
+        <div class="controls">
+          <img src="/uploads/{{unique}}" class="thumbnail" alt="{{title}}">
+          <p class="help-block"></p>
+        </div>
+      </div>
+    {{! end image }}
+
+    {{! start tags }}
+      <div class="control-group span4">
+        <label for="control-label">Tags:</label>
+        <div class="controls">
+          <div id="serverTags"></div>
+          <p class="help-block"></p>
+        </div>
+      </div>
+    {{! end tags }}
+
+    </div>
+  </form>
+  {{/images}}
+
+</div>

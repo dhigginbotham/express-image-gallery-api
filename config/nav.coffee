@@ -24,7 +24,6 @@ NavLoader = module.exports =
     ]
 
   render: (req, res, next) ->
-
     if !req.user
       nav = NavLoader.types.noauth
     else if req.user.admin is true
@@ -34,11 +33,13 @@ NavLoader = module.exports =
 
     for n in nav
       do (n) ->
-        if req.route.path == n.href
-          n.cur = "active"
-        else
-          n.cur = null
+        process.nextTick () ->
+          if req.route.path == n.href
+            n.cur = "active"
+          else
+            n.cur = null
 
     process.nextTick () ->
       req._navObj = nav
       next()
+

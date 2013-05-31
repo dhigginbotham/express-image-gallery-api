@@ -9,7 +9,7 @@
   {{#images}}
       <tr>
         <td>
-          <img src="/uploads/{{unique}}" alt="{{title}}">
+          <a href="/images/{{_id}}/edit"><img src="/uploads/{{unique}}" alt="{{title}}" /></a>
         </td>
       </tr>
   {{/images}}

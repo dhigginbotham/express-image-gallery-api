@@ -22,6 +22,7 @@ _page = module.exports =
         title: req.body.page_title
         content: req.body.pages_content
         who: req.user._id
+        slug: req.body.page_slug
       page.save (err, page) ->
         if err?
           req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
@@ -42,12 +43,13 @@ _page = module.exports =
         published = true
 
       page =
+        slug: req.body.page_slug
         title: req.body.page_title
         content: req.body.pages_content
         who: req.user._id
         published: published
 
-      Page.update _id: req.params.id, page, safe: true, (err, page) ->
+      Page.update slug: req.params.slug, page, safe: true, (err, page) ->
         if err?
           req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
           next()
@@ -56,7 +58,7 @@ _page = module.exports =
           req._page = page
           next()
   findOne: (req, res, next) ->
-    Page.findOne _id: req.params.id, (err, page) ->
+    Page.findOne slug: req.params.slug, (err, page) ->
       if err
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()

@@ -24,5 +24,6 @@
     </div>
   </div>
 </div>
-
-{{>parts/flash}}
+<div class="container">
+  {{>parts/flash}}
+</div>

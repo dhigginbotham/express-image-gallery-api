@@ -14,7 +14,7 @@ Notes = new Schema
     type: String
     ref: "User"
 PageSchema = new Schema
-  _id: String
+  _id: ObjectId
   title: String
   ts: 
     type: Date
@@ -27,13 +27,13 @@ PageSchema = new Schema
   who: 
     type: String
     ref: "User"
+  slug: String
 
 Page = module.exports = db.model "Page", PageSchema
 
-PageSchema.pre "save", (next) ->
-  if !this.isModified "title"
-    next()
-  else
-    this._id = string.slugify this.title
-    next() 
-
+# PageSchema.pre "save", (next) ->
+#   if !this.isModified "title"
+#     next()
+#   else
+#     # this.slug = string.slugify this.title
+#     next() 

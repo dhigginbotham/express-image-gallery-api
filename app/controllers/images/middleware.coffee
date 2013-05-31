@@ -22,7 +22,7 @@ _images = module.exports =
       process.nextTick () ->
         next()
   findOne: (req, res, next) ->
-    Image.findOne _id: req.params.id, (err, image) ->
+    Image.findOne(_id: req.params.id).populate('who tags').exec (err, image) ->
       if err
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()

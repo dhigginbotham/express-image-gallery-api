@@ -1,0 +1,57 @@
+{{> parts/nav/nav}}
+<div class="container">
+
+{{#edit}}
+  <legend><i class="icon-magic"></i> Edit {{title}}</legend>
+{{/edit}}
+{{^edit}}
+  <legend><i class="icon-magic"></i> Add Tag</legend>
+{{/edit}}
+
+    <form method="post" enctype="multipart/form-data" id="appsForm">
+
+      <div class="row">
+      {{! tag title }}
+        <div class="control-group span12">
+          <label for="control-label">Tag Title</label>
+          <div class="controls">
+            <input type="text" id="tag_title" class="input input-block-level" name="tag_title"{{#edit}} value="{{title}}"{{/edit}} data-validation-required-message="Your tag needs a title" required/>
+            <p class="help-block"></p>
+          </div>
+        </div>
+      {{! /tag title }}
+      </div>
+
+      <div class="row">
+      {{! tag slug }}
+        <div class="control-group span12">
+          <label for="control-label">Slug</label>
+          <div class="controls">
+            <input type="text" id="tag_slug" class="input input-block-level" name="tag_slug"{{#edit}} value="{{slug}}"{{/edit}} data-validation-required-message="Your tag needs a slug" required/>
+            <p class="help-block"></p>
+          </div>
+        </div>
+      {{! /tag slug }}
+      </div>
+
+      <div class="row">
+      {{! tag content }}
+        <div class="control-group span12">
+          <label for="control-label">Tag description</label>
+          <div class="controls">
+            <textarea name="tags_content" id="tags_content" style="height: 150px; width: 100%;">{{{edit.desc}}}</textarea>
+            <p class="help-block"></p>
+          </div>
+        </div>
+      {{! /tag content }}
+      </div>
+
+      <hr>
+      <div class="form-actions">
+        {{#edit}}<button type="submit" class="btn btn-primary" data-loading-text="Updating..."><i class="icon-ok"></i> Update Tag</button>{{/edit}}
+        {{^edit}}<button type="submit" class="btn btn-primary" data-loading-text="Adding..."><i class="icon-ok"></i> Add Tag</button>{{/edit}}
+      </div>
+
+    </form>
+</div>
+

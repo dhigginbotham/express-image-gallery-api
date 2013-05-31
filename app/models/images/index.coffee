@@ -4,21 +4,9 @@ path = require "path"
 Schema = require("mongoose").Schema
 ObjectId = Schema.Types.ObjectId
 
-Tags = new Schema
-  _id: String
-  title: String
-  ts:
-    type: Date
-    default: Date.now
-  desc: String
-  who: 
-    type: String
-    ref: "User"
-
 ImageSchema = new Schema
   _id: ObjectId
   title: String
-  file: Object
   ts: 
     type: Date
     default: Date.now
@@ -31,7 +19,9 @@ ImageSchema = new Schema
   published: 
     type: Boolean
     default: true
-  tags: [Tags]
+  tags: 
+    type: ObjectId
+    ref: "Tag"
   who: 
     type: String
     ref: "User"

@@ -35,12 +35,14 @@ passport = require "passport"
 userController = require "./app/controllers/user"
 imagesController = require "./app/controllers/images"
 pagesController = require "./app/controllers/pages"
+tagsController = require "./app/controllers/tags"
 mainController = require "./app/controllers/main"
 
 # route middleware
 user_middleware = require "./app/controllers/user/middleware"
 images_middleware = require "./app/controllers/images/middleware"
 pages_middleware = require "./app/controllers/pages/middleware"
+tags_middleware = require "./app/controllers/tags/middleware"
 main_middleware = require "./app/controllers/main/middleware"
 
 # middleware / helpers
@@ -50,23 +52,35 @@ nav = require "./config/nav"
 
 # validation middleware
 pages_validate = require "./app/controllers/pages/validate"
+tags_validate = require "./app/controllers/tags/validate"
 user_validate = require "./app/controllers/user/validate"
 images_validate = require "./app/controllers/images/validate"
 
 # default application configuration
 app.configure () ->
-  app.set "port", process.env.port
+  if process.env.NODE_ENV == "development"
+    app.set "port", 3001
+  else
+    app.set "port", process.env.port
   app.set "views", "./app/views"
   app.set "view engine", "mmm"
   app.set "layout", "layout"
+  if process.env.NODE_ENV == "development"
+    app.use (req, res, next) ->
+      if req.url.indexOf "/js/" == 0 && req.url.indexOf "/img/" == 0 && req.url.indexOf "/apps/" == 0 && req.url.indexOf "/uploads/" == 0 && req.url.indexOf "/pages/" == 0
+        console.log "cache applied to #{req.url}" if process.env.NODE_ENV == "development"
+        res.setHeader "Cache-Control", "public, max-age=345600"
+        res.setHeader "Expires", new Date(Date.now() + 345600000).toUTCString()
+        next()
+      else
+        next()
+  app.use express.favicon path.join __dirname, "public", "img", "icon.ico"
   app.use express.compress()
   if process.env.NODE_ENV == "development"
-    app.set "port", 3001
     app.use express.logger "dev"
     app.use express.errorHandler 
       dumpExceptions: true
       showStack: true
-  # app.use express.favicon(__dirname + "/public/img/icon.ico")
   app.use express.bodyParser keepExtensions: true, uploadDir: "./public/uploads" # path.join __dirname, "public", "uploads"
   app.use express.methodOverride()
   app.use express.cookieParser()
@@ -80,8 +94,6 @@ app.configure () ->
   app.use flash()
   app.use app.router
   app.use express.static path.join __dirname, "public"
-
-# routes & middleware
 
 # index route
 app.get "/", scripts.embed, nav.render, mainController.index
@@ -125,13 +137,24 @@ app.get "/users/:user/remove", scripts.embed, pass.ensureAuthenticated, nav.rend
 app.get "/pages/view", scripts.embed, nav.render, pages_middleware.findAll, pagesController.view
 app.get "/pages/add", pass.ensureAuthenticated, pass.ensureAdmin, nav.render, scripts.embed, pagesController.add
 app.post "/pages/add", pass.ensureAuthenticated, pass.ensureAdmin, pages_validate.add, nav.render, pages_middleware.addPage, scripts.embed, pagesController.add
-app.get "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.findOne, pagesController.edit
-app.post "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.editPage, (req, res) ->
+app.get "/pages/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.findOne, pagesController.edit
+app.post "/pages/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.editPage, (req, res) ->
   res.redirect req.get "Referer"
-app.get "/pages/:id", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single
+app.get "/pages/:slug", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single
+
+# pages routes for basic cms stuff
+app.get "/tags/view", scripts.embed, nav.render, tags_middleware.findAll, tagsController.view
+app.get "/tags/add", pass.ensureAuthenticated, pass.ensureAdmin, nav.render, scripts.embed, tagsController.add
+app.post "/tags/add", pass.ensureAuthenticated, pass.ensureAdmin, tags_validate.add, nav.render, tags_middleware.addPage, scripts.embed, tagsController.add
+app.get "/tags/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, tags_middleware.findOne, tagsController.edit
+app.post "/tags/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, tags_middleware.editPage, (req, res) ->
+  res.redirect req.get "Referer"
+app.get "/tags/:slug", scripts.embed, nav.render, tags_middleware.findOne, tagsController.single
 
 # images routes
 app.get "/images", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
+app.get "/images/:id/edit", scripts.embed, nav.render, images_middleware.findOne, imagesController.edit
+
 app.get "/images/:page", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
 
 app.post "/upload", images_middleware.handle, imagesController.upload

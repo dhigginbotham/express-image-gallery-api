@@ -14,10 +14,8 @@ scripts = module.exports =
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/:id/edit', type: 'js', exclude: null}
     # test routes
     {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
-    # {src: '/js/lib/dropfolder.js', name: 'dropfolder.js', where: 'foot', uri: '/', type: 'js', exclude: null}
     {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: '/', type: 'js', exclude: null}
     {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null}
-    # {src: '/css/vendor/dropzone.css', name: 'dropzone.css', where: 'head', uri: '/', type: 'css', exclude: null}
     {src: '/css/vendor/basic.css', name: 'basic.css', where: 'head', uri: '/', type: 'css', exclude: null}
   ]
 
@@ -50,11 +48,12 @@ scripts = module.exports =
 
     for ctx in script
       do (ctx) ->
-        if embed.head[ctx.type] || embed.foot[ctx.type]
-          console.log "#{red}Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
-          if ( ctx.uri == req.route.path || ctx.uri == null ) and ctx.exclude != req.route.path
-            console.log "#{cyan}Including:#{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
-            embed[ctx.where][ctx.type].push ctx
+        process.nextTick () ->
+            if embed.head[ctx.type] || embed.foot[ctx.type]
+              console.log "#{red}Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
+              if ( ctx.uri == req.route.path || ctx.uri == null ) and ctx.exclude != req.route.path
+                console.log "#{cyan}Including:#{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
+                embed[ctx.where][ctx.type].push ctx
 
     process.nextTick () ->
       req.loaded = embed
