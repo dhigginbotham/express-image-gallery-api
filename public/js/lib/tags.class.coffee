@@ -1,4 +1,8 @@
 tagsClass = (() ->
+  Array::unique = ->
+    output = {}
+    output[@[key]] = @[key] for key in [0...@length]
+    value for key, value of output      
   s = {}
   return {
     settings: {}
@@ -6,7 +10,7 @@ tagsClass = (() ->
       s = tagsClass.settings
       s.elem = elem
       s.tags = tags
-      tagsClass.renderMultiple tags
+      tagsClass.renderMultiple s.tags.unique()
     render: (tags) ->
       tagsClass.renderLabel tags
       tagsClass.renderHiddenInput tags
@@ -16,23 +20,14 @@ tagsClass = (() ->
     renderHiddenInput: (tags) ->
       html = "<input type='hidden' name='tags[#{tags}]' />\r\n"
       $("#" + s.elem.hidden).append html
-    eliminateDuplicates: (tags) ->
-      out = []
-      obj = {}
-      for [i..tags.length]
-        obj[arr[i]] = 0
-      for i in obj
-        out.push(i)
-      return out
     sanitizeOutput: (tags) ->
       arr = []
       if tags.indexOf "," == 0 || tags.indexOf "," == 0
         arr = tags.split /(?: ,|,| )+/
-        s.tags.push arr
-        tagsClass.renderMultiple arr
+        s.tags = s.tags.concat arr
       else
         s.tags.push tags
-        tagsClass.render tags
+      tagsClass.renderMultiple s.tags.unique()
       tagsClass.cleanUp()
     renderMultiple: (tags) ->
       for t in tags
@@ -54,10 +49,6 @@ elem =
   hidden: "tagHidden"
 
 tags = [
-  "sample"
-  "lip"
-  "cool"
-  "dive"
 ]
 
 tagsClass.init elem, tags

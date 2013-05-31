@@ -4,6 +4,20 @@
   tagsClass = (function() {
     var s;
 
+    Array.prototype.unique = function() {
+      var key, output, value, _i, _ref, _results;
+
+      output = {};
+      for (key = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; key = 0 <= _ref ? ++_i : --_i) {
+        output[this[key]] = this[key];
+      }
+      _results = [];
+      for (key in output) {
+        value = output[key];
+        _results.push(value);
+      }
+      return _results;
+    };
     s = {};
     return {
       settings: {},
@@ -11,7 +25,7 @@
         s = tagsClass.settings;
         s.elem = elem;
         s.tags = tags;
-        return tagsClass.renderMultiple(tags);
+        return tagsClass.renderMultiple(s.tags.unique());
       },
       render: function(tags) {
         tagsClass.renderLabel(tags);
@@ -29,32 +43,17 @@
         html = "<input type='hidden' name='tags[" + tags + "]' />\r\n";
         return $("#" + s.elem.hidden).append(html);
       },
-      eliminateDuplicates: function(tags) {
-        var i, obj, out, _i, _j, _len, _ref;
-
-        out = [];
-        obj = {};
-        for (_i = i, _ref = tags.length; i <= _ref ? _i <= _ref : _i >= _ref; i <= _ref ? _i++ : _i--) {
-          obj[arr[i]] = 0;
-        }
-        for (_j = 0, _len = obj.length; _j < _len; _j++) {
-          i = obj[_j];
-          out.push(i);
-        }
-        return out;
-      },
       sanitizeOutput: function(tags) {
         var arr;
 
         arr = [];
         if (tags.indexOf("," === 0 || tags.indexOf("," === 0))) {
           arr = tags.split(/(?: ,|,| )+/);
-          s.tags.push(arr);
-          tagsClass.renderMultiple(arr);
+          s.tags = s.tags.concat(arr);
         } else {
           s.tags.push(tags);
-          tagsClass.render(tags);
         }
+        tagsClass.renderMultiple(s.tags.unique());
         return tagsClass.cleanUp();
       },
       renderMultiple: function(tags) {
@@ -88,7 +87,7 @@
     hidden: "tagHidden"
   };
 
-  tags = ["sample", "lip", "cool", "dive"];
+  tags = [];
 
   tagsClass.init(elem, tags);
 
