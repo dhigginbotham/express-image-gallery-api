@@ -1,13 +1,36 @@
 Tag = require "../../models/tags"
-
+###
+TagSchema = new Schema
+  _id: ObjectId
+  title: String
+  ts: 
+    type: Date
+    default: Date.now
+  desc: String
+  published:
+    type: Boolean
+    default: true
+  who: 
+    type: String
+    ref: "User"
+  slug: String
+###
 _tags = module.exports =
   addTag: (req, res, next) ->
-    if req.body? && req.body.tag_title?
+    if req.body? && req.body.title?
+
+      if req.body.published? && req.body.published == "on"
+        published = true
+      else
+        published = true
+
       tag = new Tag
-        title: req.body.tag_title
-        content: req.body.tag_content
+        title: req.body.title
+        desc: req.body.desc
         who: req.user._id
-        slug: req.body.tag_slug
+        slug: req.body.slug
+        published: published
+        
       tag.save (err, tag) ->
         if err?
           req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
@@ -20,7 +43,7 @@ _tags = module.exports =
           req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error creating your tag"
           next()        
   editTag: (req, res, next) ->
-    if req.body? && req.body.tag_title?
+    if req.body? && req.body.title?
 
       if req.body.published? && req.body.published == "on"
         published = true
@@ -28,9 +51,9 @@ _tags = module.exports =
         published = true
 
       tag =
-        slug: req.body.tag_slug
-        title: req.body.tag_title
-        content: req.body.tag_content
+        slug: req.body.slug
+        title: req.body.title
+        desc: req.body.desc
         who: req.user._id
         published: published
 

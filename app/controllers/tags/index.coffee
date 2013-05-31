@@ -9,7 +9,7 @@ _tags = module.exports =
   edit: (req, res) ->
     res.render "pages/tags/add",
       user: req.user
-      edit: req._page
+      edit: req._tag
       flash: req.flash "info"
       nav: req._navObj
       que: req.loaded
@@ -17,7 +17,7 @@ _tags = module.exports =
 
     res.render "pages/tags/view",
       user: req.user
-      pages: req._page
+      tags: req._tag
       flash: req.flash "info"
       que: req.loaded
       nav: req._navObj
@@ -26,7 +26,7 @@ _tags = module.exports =
 
     res.render "pages/tags/single",
       user: req.user
-      pages: req._page
+      tags: req._tag
       flash: req.flash "info"
       que: req.loaded
       nav: req._navObj

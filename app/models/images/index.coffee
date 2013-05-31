@@ -1,6 +1,8 @@
 string = require "../../../helpers"
 path = require "path"
 
+moment = require "moment"
+
 Schema = require("mongoose").Schema
 ObjectId = Schema.Types.ObjectId
 

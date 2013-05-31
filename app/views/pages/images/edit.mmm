@@ -2,9 +2,9 @@
 
 <div class="container">
 
-  {{#images}}
   <form method="post" enctype="multipart/form-data" id="editImgForm">
     <legend>Edit Image Data</legend>
+  {{#images}}
     <div class="row">
     {{! page title }}
       <div class="control-group span10">
@@ -34,12 +34,17 @@
         </div>
       </div>
     {{! end image }}
+  {{/images}}
 
     {{! start tags }}
       <div class="control-group span4">
         <label for="control-label">Tags:</label>
         <div class="controls">
-          <div id="serverTags"></div>
+          <ul>
+            {{#tags}}
+            <li>{{title}}</li>
+            {{/tags}}
+          </ul>
           <p class="help-block"></p>
         </div>
       </div>
@@ -47,6 +52,5 @@
 
     </div>
   </form>
-  {{/images}}
 
 </div>

@@ -26,7 +26,7 @@ _images = module.exports =
       if err
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
-      if image
+      if image?
         req.findOne = image
         next()
       else
@@ -37,7 +37,7 @@ _images = module.exports =
       if err
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
-      if image
+      if image?
         req.findAll = image
         next()
       else
