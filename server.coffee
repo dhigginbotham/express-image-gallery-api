@@ -65,15 +65,15 @@ app.configure () ->
   app.set "views", "./app/views"
   app.set "view engine", "mmm"
   app.set "layout", "layout"
-  if process.env.NODE_ENV == "development"
-    app.use (req, res, next) ->
-      if req.url.indexOf "/js/" == 0 && req.url.indexOf "/img/" == 0 && req.url.indexOf "/apps/" == 0 && req.url.indexOf "/uploads/" == 0 && req.url.indexOf "/pages/" == 0
-        console.log "cache applied to #{req.url}" if process.env.NODE_ENV == "development"
-        res.setHeader "Cache-Control", "public, max-age=345600"
-        res.setHeader "Expires", new Date(Date.now() + 345600000).toUTCString()
-        next()
-      else
-        next()
+  # if process.env.NODE_ENV == "development"
+  #   app.use (req, res, next) ->
+  #     if req.url.indexOf "/js/" == 0 && req.url.indexOf "/img/" == 0 && req.url.indexOf "/apps/" == 0 && req.url.indexOf "/uploads/" == 0 && req.url.indexOf "/pages/" == 0
+  #       console.log "cache applied to #{req.url}" if process.env.NODE_ENV == "development"
+  #       res.setHeader "Cache-Control", "public, max-age=345600"
+  #       res.setHeader "Expires", new Date(Date.now() + 345600000).toUTCString()
+  #       next()
+  #     else
+  #       next()
   app.use express.favicon path.join __dirname, "public", "img", "icon.ico"
   app.use express.compress()
   if process.env.NODE_ENV == "development"
@@ -97,11 +97,6 @@ app.configure () ->
 
 # index route
 app.get "/", scripts.embed, nav.render, mainController.index
-app.post "/", scripts.embed, nav.render, (req, res, next) ->
-  # lets test our req.body, little sloppy
-  console.log req.body
-  next()
-, mainController.index
 
 # tests and shit
 app.get "/tests", scripts.embed, nav.render, mainController.tests
