@@ -41,6 +41,7 @@
         <label for="control-label">Tags:</label>
         <input type="text" id="tagInput" />
         <div id="tagContainer"></div>
+        <div id="tagHidden"></div>
       </div>
     {{! end tags }}
 
