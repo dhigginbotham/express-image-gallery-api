@@ -130,7 +130,7 @@ app.post "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.
   res.redirect req.get "Referer"
 app.get "/pages/:id", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single
 
-app.post "/upload", images_middleware.handle, imagesController.upload
+app.post "/upload", imagesController.upload
 
 # go!
 server.listen app.get("port"), () ->

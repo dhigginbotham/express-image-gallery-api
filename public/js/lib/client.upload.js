@@ -1,3 +1,4 @@
 $(document).ready(function () {
-  $("div#dropzone").dropzone({ url: "/" });
+  $("form#droppable").dropzone({ url: "/upload" });
 });
+

@@ -13,25 +13,27 @@ scripts = module.exports =
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/:id/edit', type: 'js', exclude: null}
     # test routes
-    if process.env.NODE_ENV == "development"
-      {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
-      {src: '/js/lib/dropfolder.js', name: 'dropfolder.js', where: 'foot', uri: '/', type: 'js', exclude: null}
-      {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: '/', type: 'js', exclude: null}
-      {src: '/css/vendor/dropzone.css', name: 'dropzone.css', where: 'head', uri: '/', type: 'css', exclude: null}
+    {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
+    # {src: '/js/lib/dropfolder.js', name: 'dropfolder.js', where: 'foot', uri: '/', type: 'js', exclude: null}
+    {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: '/', type: 'js', exclude: null}
+    {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null}
+    # {src: '/css/vendor/dropzone.css', name: 'dropzone.css', where: 'head', uri: '/', type: 'css', exclude: null}
+    {src: '/css/vendor/basic.css', name: 'basic.css', where: 'head', uri: '/', type: 'css', exclude: null}
   ]
 
   embed: (req, res, next) ->
+    # written by david higginbotham, didn't really need to much
+    # or something as built out like require.js so I wrote this
+    # little guy to load scripts or css.. I may figure out more
+    # ways to extend this in the future, but for now it works
+    # and I like it very much for my uses.
 
-    # -- 5/17/13 --
-    # needs the ability to have uri arrays for multiple 
-    # pages to remove line duplications for such a small
-    # change in the routes. @dh
+    # use this as you wish, maybe buy me a beer one day ;)
 
-    # scratch that, this is fine -- @dl
+    # npm colors module: Thanks to the colors module library
+    # i didn't feel the need for a dependency only used for
+    # development - so thank you.
 
-    # colors, thanks to the colors module library
-    # i didn't feel the need for a dependency only 
-    # development - so thank you, in advance
     red = '\x1B[31m'
     cyan = '\x1B[36m'
     reset = '\x1B[39m'
@@ -49,9 +51,9 @@ scripts = module.exports =
     for ctx in script
       do (ctx) ->
         if embed.head[ctx.type] || embed.foot[ctx.type]
-          console.log "#{red}Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
+          # console.log "#{red}Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and process.env.NODE_ENV is "development"
           if ( ctx.uri == req.route.path || ctx.uri == null ) and ctx.exclude != req.route.path
-            console.log "#{cyan}Including:#{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
+            # console.log "#{cyan}Including:#{reset} #{ctx.name} into #{ctx.where}er" if process.env.NODE_ENV is "development"
             embed[ctx.where][ctx.type].push ctx
 
     process.nextTick () ->
