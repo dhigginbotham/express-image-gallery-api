@@ -6,7 +6,7 @@ scripts = module.exports =
     {src: '/css/style.css', name: 'style.css', where: 'head', uri: null, type: 'css', exclude: null}
     {src: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', name: 'jquery.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js', name: 'bootstrap.js', where: 'foot', uri: null, type: 'js', exclude: null}
-    {src: 'http://cdn.sockjs.org/sockjs-0.3.min.js', name: 'sockjs', where: 'foot', uri: null, type: 'js', exclude: null}
+    {src: 'http://cdn.sockjs.org/sockjs-0.3.min.js', name: 'sockjs.js', where: 'foot', uri: null, type: 'js', exclude: null}
     # pages routes
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/pages/:id/edit', type: 'js', exclude: null}
@@ -16,6 +16,8 @@ scripts = module.exports =
     if process.env.NODE_ENV == "development"
       {src: 'http://jashkenas.github.com/coffee-script/extras/coffee-script.js', name: 'coffee-script.js', where: 'foot', uri: null, type: 'js', exclude: null}
       {src: '/js/lib/dropfolder.js', name: 'dropfolder.js', where: 'foot', uri: '/', type: 'js', exclude: null}
+      {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: '/', type: 'js', exclude: null}
+      {src: '/css/vendor/dropzone.css', name: 'dropzone.css', where: 'head', uri: '/', type: 'css', exclude: null}
   ]
 
   embed: (req, res, next) ->

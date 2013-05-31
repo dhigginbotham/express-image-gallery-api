@@ -8,3 +8,4 @@
 </div>
 
 {{> parts/upload/folder}}
+{{> parts/upload/file}}

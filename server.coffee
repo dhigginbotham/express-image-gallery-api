@@ -33,11 +33,13 @@ passport = require "passport"
 
 # controllers / routes
 userController = require "./app/controllers/user"
+imagesController = require "./app/controllers/images"
 pagesController = require "./app/controllers/pages"
 mainController = require "./app/controllers/main"
 
 # route middleware
 user_middleware = require "./app/controllers/user/middleware"
+images_middleware = require "./app/controllers/images/middleware"
 pages_middleware = require "./app/controllers/pages/middleware"
 main_middleware = require "./app/controllers/main/middleware"
 
@@ -49,6 +51,7 @@ nav = require "./config/nav"
 # validation middleware
 pages_validate = require "./app/controllers/pages/validate"
 user_validate = require "./app/controllers/user/validate"
+images_validate = require "./app/controllers/images/validate"
 
 # default application configuration
 app.configure () ->
@@ -64,7 +67,7 @@ app.configure () ->
       dumpExceptions: true
       showStack: true
   # app.use express.favicon(__dirname + "/public/img/icon.ico")
-  app.use express.bodyParser()
+  app.use express.bodyParser keepExtensions: true, uploadDir: path.join __dirname, "public", "uploads"
   app.use express.methodOverride()
   app.use express.cookieParser()
   # using cooking sessions to improve overall speed
@@ -83,6 +86,7 @@ app.configure () ->
 # index route
 app.get "/", scripts.embed, nav.render, mainController.index
 app.post "/", scripts.embed, nav.render, (req, res, next) ->
+  # lets test our req.body, little sloppy
   console.log req.body
   next()
 , mainController.index
@@ -124,7 +128,9 @@ app.post "/pages/add", pass.ensureAuthenticated, pass.ensureAdmin, pages_validat
 app.get "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.findOne, pagesController.edit
 app.post "/pages/:id/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, pages_middleware.editPage, (req, res) ->
   res.redirect req.get "Referer"
-app.get "/pages/:id", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single 
+app.get "/pages/:id", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single
+
+app.post "/upload", images_middleware.handle, imagesController.upload
 
 # go!
 server.listen app.get("port"), () ->

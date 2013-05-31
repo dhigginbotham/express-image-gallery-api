@@ -1,0 +1,8 @@
+<div class="container">
+  <form method="post" action="/upload" class="dropzone" enctype="multipart/form-data">
+    <div class="fallback">
+      <input name="file" type="file" multiple />
+    </div>
+    <button>Upload</button>
+  </form>
+</div>
