@@ -1,6 +1,5 @@
 _page = module.exports =
   add: (req, res) ->
-    
     res.render "pages/pages/add",
       user: req.user
       flash: req.flash "info"
@@ -14,7 +13,6 @@ _page = module.exports =
       nav: req._navObj
       que: req.loaded
   view: (req, res) ->
-
     res.render "pages/pages/view",
       user: req.user
       pages: req._page
@@ -23,7 +21,6 @@ _page = module.exports =
       nav: req._navObj
       prefix: "pages"
   single: (req, res) ->
-
     res.render "pages/pages/single",
       user: req.user
       pages: req._page
