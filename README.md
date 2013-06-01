@@ -25,26 +25,26 @@ needed an image gallery base app, kinda playing around you probably don't want a
       - `pages`
       - `tags`
       - `user`
-    - `models` - this is where our schemas reside
-      - `db` - this is where the main db is shared from
+    - `models` this is where our schemas reside
+      - `db` this is where the main db is shared from
       - `images`
       - `pages`
       - `tags`
       - `users`
-    - `views` - views, using [mmm](https://github.com/techhead/mmm) Mustache Marked Media
-      - `pages` - full pages, these will be indexed from controller routes ie ~ controllers/pages/index.coffee
-        - `cms` ** to be renamed to match /pages controller & models **
+    - `views` views, using [mmm](https://github.com/techhead/mmm) Mustache Marked Media
+      - `pages` full pages, these will be indexed from controller routes ie ~ controllers/pages/index.coffee
+        - `cms` **to be renamed to match /pages controller & models**
         - `images`
         - `tags`
-        - `tests` ** has some hackish stuff... nothing ever works in here
+        - `tests` __has some hackish stuff... nothing ever works in here__
         - `users`
-        - `view``
-      - `parts` - these are parts indexed inside the pages 
+        - `view`
+      - `parts` these are parts indexed inside the pages 
         - `nav`
         - `que`
         - `upload`
-  - `config` - general purpose config helpers -- passport, que, nav & forms call this home
-  - `helpers` - helper scripts along the way
+  - `config` general purpose config helpers -- passport, que, nav & forms call this home
+  - `helpers` helper scripts along the way
   - `public`
     - `css`
       - `vendor`
@@ -52,7 +52,7 @@ needed an image gallery base app, kinda playing around you probably don't want a
       - `vendor`
       - `lib`
     - `img`
-    - `uploads` you really need this folder right now
+    - `uploads` (you really need this folder right now)
 
 ##recent
   - refactored `/config/scripts.coffee` added better debugging
@@ -61,3 +61,4 @@ needed an image gallery base app, kinda playing around you probably don't want a
 
 ##todo
   - sockjs, csrf, ratelimiting, better user roles
+  - add cdn hosted image support
