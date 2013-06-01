@@ -7,7 +7,7 @@ User = require "../app/models/users"
 #   done null, user._id
 
 # passport.deserializeUser (id, done) ->
-#   User.findById id, (err, user) ->
+#   User.findOne _id: id, (err, user) ->
 #     done err, user
 
 passport.use new LocalStrategy (username, password, done) ->
