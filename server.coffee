@@ -3,7 +3,12 @@ sockjs = require "sockjs"
 flash = require "connect-flash"
 
 if process.env.NODE_ENV == "development"
-  # process.env.NODE_PASS = "some-pass"
+  # use this if you want to get an admin account
+  # change the process.env.NODE_PASS to something cool
+  # when you're ready to turn it off, just change NODE_SEED
+  # to false
+
+  # process.env.NODE_PASS = "juggl1ng-kitt3n"
   process.env.NODE_SEED = true
  
 sockjs_opts = sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js"
@@ -28,7 +33,7 @@ path = require "path"
 
 # init required folders
 initPath = path.join __dirname, "public", "uploads"
-init = require("./config/init").init(initPath)
+init = require("./config/init").init initPath
 
 # passport auth middleware
 pass = require "./config/pass"
