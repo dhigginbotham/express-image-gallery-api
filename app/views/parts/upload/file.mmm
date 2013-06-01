@@ -5,6 +5,7 @@
     </div>
   </form>
 </div>
-<script>
+<script src="/js/vendor/dropzone.js"></script>
+{{! <script>
   var myDropzone = new Dropzone("form#droppable", { url: "/upload"});
-</script>
+</script> }}
