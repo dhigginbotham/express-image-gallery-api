@@ -12,14 +12,14 @@ _init =
   exists: (err, folder, fn) ->
     fs.exists folder, (exists) ->
       if !exists
-        fn folder if fn?
+        fn null, folder if fn?
       else
         fn "folder exists", null
   make: (err, folder, fn) ->
     if folder != null
       mkdirp folder, (err) ->
         fn err, null if err
-        fn null, folder if fn?
+        fn null, folder
     else
       fn "folder is null", null
   init: (folder) ->

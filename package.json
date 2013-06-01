@@ -13,6 +13,7 @@
     "sockjs": "*",
     "mongoose": "3.6.x",
     "connect-flash": "0.1.0",
+    "connect-mongo": "0.3.x",
     "passport": "0.1.x",
     "passport-local": "0.1.6",
     "passport-facebook": ">= 0.0.0",

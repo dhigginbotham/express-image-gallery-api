@@ -1,6 +1,6 @@
 scripts = module.exports =
   settings:
-    verbose: true # set this to false to turn off verbosity
+    verbose: false # set this to true to turn on verbosity
     internal: true # this will accept an external array, doesn't work yet... intentions are there.
   items: [
     {src: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css', name: 'bootstrap.css', where: 'head', uri: null, type: 'css', exclude: null}

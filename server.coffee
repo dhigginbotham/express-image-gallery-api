@@ -1,6 +1,7 @@
 express = require "express"
 sockjs = require "sockjs"
 flash = require "connect-flash"
+MongoStore = require('connect-mongo')(express);
 
 if process.env.NODE_ENV == "development"
   # use this if you want to get an admin account
@@ -26,7 +27,7 @@ sockjs_echo.installHandlers server,
 
 # global connection sharing
 shared_db = require "./app/models/db"
-
+console.log shared_db
 # native modules
 fs = require "fs"
 path = require "path"
@@ -94,10 +95,19 @@ app.configure () ->
   app.use express.methodOverride()
   app.use express.cookieParser()
   # using cooking sessions to improve overall speed
-  app.use express.cookieSession
-    secret: "cookie-secret"
+  # app.use express.cookieSession
+  #   secret: "cookie-secret"
+  #   cookie:
+  #     maxAge: 60 * 60 * 1000
+  app.use express.session
+    secret: process.env.NODE_PASS,
     cookie:
-      maxAge: 60 * 60 * 1000
+      maxAge: 100 * 60 * 60
+    store: new MongoStore
+      db: "cache"
+      url: "mongodb://localhost/imgapi"
+      auto_reconnect: true
+      auto_reconnect: 60 * 60
   app.use passport.initialize()
   app.use passport.session()
   app.use flash()
