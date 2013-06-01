@@ -107,7 +107,7 @@ app.configure () ->
       db: "cache"
       url: "mongodb://localhost/imgapi"
       auto_reconnect: true
-      auto_reconnect: 60 * 60
+      clear_interval: 60 * 60
   app.use passport.initialize()
   app.use passport.session()
   app.use flash()
