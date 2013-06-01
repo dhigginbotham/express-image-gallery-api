@@ -9,8 +9,8 @@ FacebookStrategy = require("passport-facebook").Strategy
 User = require "../app/models/users"
 
 if process.env.NODE_ENV == "development"
-  FACEBOOK_APP_ID = "456946017732211"
-  FACEBOOK_APP_SECRET = "47436dae949615733ac56357b5572d45"
+  FACEBOOK_APP_ID = "146621755523749"
+  FACEBOOK_APP_SECRET = "86fb768ad010b4d3615e393872c4fe74"
 
 passport.serializeUser (user, done) ->
   done null, user
