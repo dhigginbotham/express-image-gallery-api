@@ -15,20 +15,24 @@ needed an image gallery base app, kinda playing around you probably don't want a
           FACEBOOK_APP_SECRET = "86fb768ad010b4d3615e393872c4fe74"
 
       ```
+
 ##folder structure
 - `app`
+
   - `controllers` - each controller should be inside a folder that includes: index, middleware & validation
     - `images` `res.render` for `images` routes
     - `main` `res.render` for `main` routes
     - `pages` `res.render` for `pages` routes
     - `tags` `res.render` for `tags` routes
     - `user` `res.render` for `user` routes
+
   - `models` this is where our schemas reside
     - `db` this is where the main db is shared from
     - `images` images model still heavily `WIP`
     - `pages` basic pages model with notes subdoc
     - `tags` tag schema, rather than subdocs I'll populate collections
     - `users` users schema
+  
   - `views` views, using [mmm](https://github.com/techhead/mmm) Mustache Marked Media
     - `pages` full pages, these will be indexed from controller routes ie ~ controllers/pages/index.coffee
       - `pages` has all the crud stuff for creating pages/archives
@@ -41,6 +45,7 @@ needed an image gallery base app, kinda playing around you probably don't want a
       - `nav` navigation parts, this is still under heavy work
       - `que` you can find the script loader templates, they are included in the `layout.mmm` file
       - `upload` different upload parts for experimenting / dropping in upload components
+
 - `config` general purpose config helpers -- passport, que, nav & forms call this home
 - `helpers` helper scripts along the way
 - `public`

@@ -59,7 +59,7 @@ scripts = module.exports =
     # run a debug log, this should be a constant while in development mode.
     scripts.logging script, req, (count) ->
       console.log "\r\n" if scripts.settings.verbose == true
-      console.log "      #{cyan}Included#{reset} #{count} of #{scripts.items.length} #{cyan}files for url:#{reset} [ #{req.url} ]#{reset}" if process.env.NODE_ENV == "development"
+      console.log "      #{cyan}Included#{reset} #{count} of #{scripts.items.length} #{cyan}files for url:#{reset} [ #{req.url} ]#{reset}" if scripts.settings.verbose == true
       console.log "\r\n" if scripts.settings.verbose == true
 
     Object.create embed =
@@ -70,16 +70,15 @@ scripts = module.exports =
         js: []
         css: []
     
-    console.log "\r\n\r\n      #{cyan}[->#{reset} !!! - DEBUG OUTPUT FOR INCLUDES - !!! #{cyan}<-]#{reset}\r\n\r\n"  if scripts.settings.verbose == true
+    console.log "\r\n\r\n      #{cyan}[->#{reset} current range: #{req.route.path} #{cyan}<-]#{reset}\r\n\r\n"  if scripts.settings.verbose == true
     
     for ctx in script
       do (ctx) ->
         if (embed.head[ctx.type] || embed.foot[ctx.type]) && ( ctx.uri == req.route.path || ctx.uri == null ) and ctx.exclude != req.route.path
           console.log "      #{red}#{count} - Excluding:#{reset} #{ctx.name}" if ctx.exclude == req.route.path and scripts.settings.verbose is true
           console.log "      #{cyan}#{count} - Including:#{reset} #{ctx.name} into #{ctx.where}er" if scripts.settings.verbose is true
+          embed[ctx.where][ctx.type].push ctx
           count++
-          process.nextTick () ->
-            embed[ctx.where][ctx.type].push ctx
 
     process.nextTick () ->
       req.loaded = embed
