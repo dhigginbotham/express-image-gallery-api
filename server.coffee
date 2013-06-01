@@ -26,6 +26,10 @@ shared_db = require "./app/models/db"
 fs = require "fs"
 path = require "path"
 
+# init required folders
+initPath = path.join __dirname, "public", "uploads"
+init = require("./config/init").init(initPath)
+
 # passport auth middleware
 pass = require "./config/pass"
 pass_facebook = require "./config/pass.facebook"

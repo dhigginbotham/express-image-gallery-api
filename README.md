@@ -15,8 +15,6 @@ needed an image gallery base app, kinda playing around you probably don't want a
           FACEBOOK_APP_SECRET = "86fb768ad010b4d3615e393872c4fe74"
 
       ```
-  - you will **need** to create a `/public/uploads` folder, I haven't gotten around to the `mkdirp module` yet.
-
 ##folder structure
 - `app`
   - `controllers` - each controller should be inside a folder that includes: index, middleware & validation
@@ -52,9 +50,10 @@ needed an image gallery base app, kinda playing around you probably don't want a
     - `vendor`
     - `lib`
   - `img`
-  - `uploads` **(you really need this folder right now)**
+  - `uploads` this is where all the uploads are set to go to..
 
 ##recent
+  - added `mkdirp` module and added `public/uploads`
   - refactored `/config/scripts.coffee` added better debugging
     - added `scripts.settings.verbose` output mode
     - added `scripts.logging` fn to get a pre-count of the files about to be loaded -- was dealing with high latency issues and massive post requests, so I figure it was a good time to run through them.
