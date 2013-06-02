@@ -1,7 +1,7 @@
 (function() {
-  var elem, tags, tagsClass;
+  var TagsClass, elem, tags;
 
-  tagsClass = (function() {
+  TagsClass = (function() {
     var s;
 
     Array.prototype.unique = function() {
@@ -22,73 +22,66 @@
     return {
       settings: {},
       init: function(elem, tags) {
-        s = tagsClass.settings;
+        s = TagsClass.settings;
         s.elem = elem;
         s.tags = tags;
-        return tagsClass.renderMultiple(s.tags.unique());
+        TagsClass.bind();
+        return TagsClass.render(s.tags);
       },
       render: function(tags) {
-        tagsClass.renderLabel(tags);
-        return tagsClass.renderHiddenInput(tags);
+        TagsClass.renderSpans(s.tags);
+        return TagsClass.renderHiddenInput(s.tags);
       },
-      renderLabel: function(tags) {
+      renderSpans: function(tags) {
+        var html, t, _i, _len;
+
+        html = "";
+        for (_i = 0, _len = tags.length; _i < _len; _i++) {
+          t = tags[_i];
+          html += "<span class='badge'>" + t + " <i class='icon-remove-sign'></i></span>&nbsp;\r\n";
+        }
+        return $("#" + s.elem.container).html(html);
+      },
+      renderHiddenInput: function() {
         var html;
 
-        html = "<span class='badge'>" + tags + " <i class='icon-remove-sign'></i></span>&nbsp;\r\n";
-        return $("#" + s.elem.label).append(html);
-      },
-      renderHiddenInput: function(tags) {
-        var html;
-
-        html = "<input type='hidden' name='tags[" + tags + "]' />\r\n";
-        return $("#" + s.elem.hidden).append(html);
+        html = "<input type='hidden' name='tags' value='" + s.tags + "' />\r\n";
+        return $("#" + s.elem.hidden).html(html);
       },
       sanitizeOutput: function(tags) {
         var arr;
 
         arr = [];
-        if (tags.indexOf("," === 0 || tags.indexOf("," === 0))) {
-          arr = tags.split(/(?: ,|,| )+/);
+        arr = tags.split(/(?: ,|,)+/);
+        if (arr.length > 0) {
           s.tags = s.tags.concat(arr);
-        } else {
-          s.tags.push(tags);
         }
-        tagsClass.renderMultiple(s.tags.unique());
-        return tagsClass.cleanUp();
-      },
-      renderMultiple: function(tags) {
-        var t, _fn, _i, _len;
-
-        _fn = function(t) {
-          return tagsClass.render(t);
-        };
-        for (_i = 0, _len = tags.length; _i < _len; _i++) {
-          t = tags[_i];
-          _fn(t);
-        }
-        return tagsClass.bind();
+        s.tags = s.tags.unique();
+        TagsClass.render(s.tags);
+        return TagsClass.cleanUp();
       },
       bind: function() {
         return $("#" + s.elem.input).on("change", function(e) {
           e.preventDefault();
-          return tagsClass.sanitizeOutput($(this).val());
+          return TagsClass.sanitizeOutput($(this).val());
         });
       },
       cleanUp: function() {
         $("#" + s.elem.input).val("");
-        return $("#" + s.elem.input).select();
+        $("#" + s.elem.input).select();
+        return console.log(s.tags);
       }
     };
   })();
 
   elem = {
-    label: "tagContainer",
+    container: "tagContainer",
     input: "tagInput",
     hidden: "tagHidden"
   };
 
   tags = [];
 
-  tagsClass.init(elem, tags);
+  TagsClass.init(elem, tags);
 
 }).call(this);

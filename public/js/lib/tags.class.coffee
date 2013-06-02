@@ -1,54 +1,51 @@
-tagsClass = (() ->
+TagsClass = (() ->
   Array::unique = ->
     output = {}
     output[@[key]] = @[key] for key in [0...@length]
-    value for key, value of output      
+    value for key, value of output
   s = {}
   return {
     settings: {}
     init: (elem, tags) ->
-      s = tagsClass.settings
+      s = TagsClass.settings
       s.elem = elem
       s.tags = tags
-      tagsClass.renderMultiple s.tags.unique()
+      TagsClass.bind()
+      TagsClass.render s.tags
     render: (tags) ->
-      tagsClass.renderLabel tags
-      tagsClass.renderHiddenInput tags
-    renderLabel: (tags) ->
-      html = "<span class='badge'>#{tags} <i class='icon-remove-sign'></i></span>&nbsp;\r\n"
-      $("#" + s.elem.label).append html
-    renderHiddenInput: (tags) ->
-      html = "<input type='hidden' name='tags[#{tags}]' />\r\n"
-      $("#" + s.elem.hidden).append html
+      TagsClass.renderSpans s.tags
+      TagsClass.renderHiddenInput s.tags
+    renderSpans: (tags) ->
+      html = ""
+      for t in tags
+        html += "<span class='badge'>#{t} <i class='icon-remove-sign'></i></span>&nbsp;\r\n"
+      $("#" + s.elem.container).html html
+    renderHiddenInput: () ->
+      html = "<input type='hidden' name='tags' value='#{s.tags}' />\r\n"
+      $("#" + s.elem.hidden).html html
     sanitizeOutput: (tags) ->
       arr = []
-      if tags.indexOf "," == 0 || tags.indexOf "," == 0
-        arr = tags.split /(?: ,|,| )+/
-        s.tags = s.tags.concat arr
-      else
-        s.tags.push tags
-      tagsClass.renderMultiple s.tags.unique()
-      tagsClass.cleanUp()
-    renderMultiple: (tags) ->
-      for t in tags
-        do (t) ->
-          tagsClass.render(t)
-      tagsClass.bind()
+      arr = tags.split /(?: ,|,)+/
+      s.tags = s.tags.concat arr if arr.length > 0
+      s.tags = s.tags.unique()
+      TagsClass.render s.tags
+      TagsClass.cleanUp()
     bind: () ->
       $("#" + s.elem.input).on "change", (e) ->
         e.preventDefault()
-        tagsClass.sanitizeOutput $(this).val()
+        TagsClass.sanitizeOutput $(this).val()
     cleanUp: () ->
       $("#" + s.elem.input).val("")
       $("#" + s.elem.input).select()
+      console.log s.tags
   })()
 
 elem =
-  label: "tagContainer"
+  container: "tagContainer"
   input: "tagInput"
   hidden: "tagHidden"
 
 tags = [
 ]
 
-tagsClass.init elem, tags
+TagsClass.init elem, tags

@@ -25,7 +25,7 @@ _images = module.exports =
       if req.body.published? && req.body.published == "on"
         published = true
       else
-        published = true
+        published = false
 
       img =
         title: req.body.title
@@ -41,7 +41,7 @@ _images = module.exports =
         process.nextTick () ->
           next()
   findOne: (req, res, next) ->
-    Image.findOne(_id: req.params.id).populate("who tags").exec (err, image) ->
+    Image.findOne(_id: req.params.id, published: true).populate("who tags").exec (err, image) ->
       if err?
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
@@ -52,7 +52,7 @@ _images = module.exports =
         req.flash "info", type: "error", title: "Oh Snap!", msg: "No image found... sorry, try again."
         next()
   findAll: (req, res, next) ->
-    Image.find (err, image) ->
+    Image.findAll published: true, (err, image) ->
       if err
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()

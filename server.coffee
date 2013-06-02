@@ -27,7 +27,7 @@ sockjs_echo.installHandlers server,
 
 # global connection sharing
 shared_db = require "./app/models/db"
-console.log shared_db
+
 # native modules
 fs = require "fs"
 path = require "path"
