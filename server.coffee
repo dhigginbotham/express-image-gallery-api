@@ -102,7 +102,7 @@ app.configure () ->
   app.use express.session
     secret: process.env.NODE_PASS,
     cookie:
-      maxAge: 100 * 60 * 60
+      maxAge: 1000 * 60 * 60
     store: new MongoStore
       db: "cache"
       url: "mongodb://localhost/imgapi"
