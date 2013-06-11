@@ -69,7 +69,7 @@ images_validate = require "./app/controllers/images/validate"
 # default application configuration
 app.configure () ->
   if process.env.NODE_ENV == "development"
-    app.set "port", 3001
+    app.set "port", 3002
   else
     app.set "port", process.env.port
   app.set "views", "./app/views"
@@ -91,23 +91,23 @@ app.configure () ->
     app.use express.errorHandler 
       dumpExceptions: true
       showStack: true
-  app.use express.bodyParser keepExtensions: true, uploadDir: "./public/uploads" # path.join __dirname, "public", "uploads"
+  app.use express.bodyParser() # keepExtensions: true, uploadDir: "./public/uploads" # path.join __dirname, "public", "uploads"
   app.use express.methodOverride()
   app.use express.cookieParser()
   # using cooking sessions to improve overall speed
-  # app.use express.cookieSession
-  #   secret: "cookie-secret"
-  #   cookie:
-  #     maxAge: 60 * 60 * 1000
-  app.use express.session
-    secret: process.env.NODE_PASS,
+  app.use express.cookieSession
+    secret: "cookie-secret"
     cookie:
-      maxAge: 1000 * 60 * 60
-    store: new MongoStore
-      db: "cache"
-      url: "mongodb://localhost/imgapi"
-      auto_reconnect: true
-      clear_interval: 60 * 60
+      maxAge: 60 * 60 * 1000
+  # app.use express.session
+  #   secret: process.env.NODE_PASS,
+  #   cookie:
+  #     maxAge: 1000 * 60 * 60
+  #   store: new MongoStore
+  #     db: "cache"
+  #     url: "mongodb://localhost/imgapi"
+  #     auto_reconnect: true
+  #     clear_interval: 60 * 60
   app.use passport.initialize()
   app.use passport.session()
   app.use flash()
@@ -173,7 +173,7 @@ app.post "/images/:id/edit", images_middleware.editImg, (req, res) ->
 
 app.get "/images/:page", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
 
-app.post "/upload", images_middleware.handle, imagesController.upload
+app.post "/upload", images_middleware.createFile, images_middleware.handle, imagesController.upload
 
 # go!
 server.listen app.get("port"), () ->

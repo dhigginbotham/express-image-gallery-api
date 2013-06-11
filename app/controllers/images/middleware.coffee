@@ -5,13 +5,21 @@ fs = require "fs"
 path = require "path"
 
 _images = module.exports =
+  createFile: (req, res, next) ->
+    req._path = path.join __dirname, "..", "..", "..", "public", "uploads", req.files.file.name
+    console.log "im getting hit nigga"
+    fs.readFile req.files.file.path, (err, data) ->
+      fs.writeFile req._path, data, (err) ->
+        next err, null if err?
+        next null, data
+
   handle: (req, res, next) ->
 
     img = new Image
       name: req.files.file.name
       type: req.files.file.type
       lastModifiedDate: req.files.file.lastModifiedDate
-      path: req.files.file.path
+      path: req._path
       size: req.files.file.size
       who: req.user
       tags: req.body.tags
@@ -19,6 +27,7 @@ _images = module.exports =
     img.save (err, image) ->
       return next err, null if err
       next()
+
   editImg: (req, res, next) ->
     console.log req.body
     if req.body? && req.body.title?
@@ -74,4 +83,4 @@ _images = module.exports =
           next()
         else
           req._page = pages
-          next()
+          next

@@ -30,14 +30,13 @@ ImageSchema = new Schema
 
 Image = module.exports = db.model "Image", ImageSchema
 
-ImageSchema.statics.process = processImg = (image) ->
-  image['tags-count'] = image.tags.length
-  image['created-date'] = moment(new Date(image.ts)).fromNow()
-  image['image-id'] = image._id
+# ImageSchema.statics.process = processImg = (image) ->
+#   image['tags-count'] = image.tags.length
+#   image['created-date'] = moment(new Date(image.ts)).fromNow()
+#   image['image-id'] = image._id
 
-ImageSchema.statics.processImgs = (images) ->
-  images.forEach processImg
+# ImageSchema.statics.processImgs = (images) ->
+#   images.forEach processImg
 
-ImageSchema.pre "save", (next) ->
-  this.unique = this.path.replace "public\\uploads\\", ""
-  next()
+# ImageSchema.pre "save", (next) ->
+#   next()
