@@ -83,4 +83,4 @@ _images = module.exports =
           next()
         else
           req._page = pages
-          next
+          next()

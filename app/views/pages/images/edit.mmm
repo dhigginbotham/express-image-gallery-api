@@ -29,7 +29,7 @@
       <div class="control-group span8">
         <label for="control-label">Image:</label>
         <div class="controls">
-          <img src="/uploads/{{unique}}" class="thumbnail" alt="{{title}}">
+          <img src="/uploads/{{name}}" class="thumbnail" alt="{{title}}">
           <p class="help-block"></p>
         </div>
       </div>

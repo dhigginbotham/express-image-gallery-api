@@ -19,7 +19,7 @@ passport.deserializeUser (obj, done) ->
   done null, obj
 
 if process.env.NODE_ENV is "development"
-  redirect_url = "http://localhost:3001"
+  redirect_url = "http://localhost:3002"
 else
   redirect_url = process.env.FB_REDIRECT_URL
 
@@ -57,7 +57,7 @@ passport.use new FacebookStrategy
           last_name: profile._json.last_name
           email: profile._json.email
           location: profile._json.location
-          role: "facebook"
+          role: 9
         
         user.save (err, newUser) ->
           if err
