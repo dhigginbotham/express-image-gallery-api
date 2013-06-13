@@ -20,7 +20,7 @@ ImageSchema = new Schema
   size: String
   published: 
     type: Boolean
-    default: true
+    default: false
   tags: 
     type: ObjectId
     ref: "Tag"

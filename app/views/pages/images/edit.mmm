@@ -8,7 +8,7 @@
     <div class="row">
     {{! page title }}
       <div class="control-group span10">
-        <label for="control-label">Page Title</label>
+        <label for="title">Image Title</label>
         <div class="controls">
           <input type="text" id="title" class="input input-block-level" name="title" value="{{title}}" data-validation-required-message="Your page needs a title" required/>
           <p class="help-block"></p>
@@ -18,7 +18,7 @@
     {{! start published }}
       <div class="control-group span2">
         <div class="controls">
-          <label class="checkbox inline"><input type="checkbox" name="published" value="true" checked> Published / Visible?</label>
+          <label class="checkbox inline" for="published"><input type="checkbox" id="published" name="published" value="{{published}}" {{#published}}checked{{/published}}> Published / Visible?</label>
         </div>
       </div>
     {{! end published }}    

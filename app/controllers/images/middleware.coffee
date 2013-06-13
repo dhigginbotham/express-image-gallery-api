@@ -31,7 +31,7 @@ _images = module.exports =
   editImg: (req, res, next) ->
     console.log req.body
     if req.body? && req.body.title?
-      if req.body.published? && req.body.published == "on"
+      if req.body.published?
         published = true
       else
         published = false
@@ -45,12 +45,12 @@ _images = module.exports =
           req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
           next()
         if img?
-          req.flash "info", type: "success", title: "Awesome", msg: "You made a img!"
+          req.flash "info", type: "success", title: "Awesome", msg: "Image data successfully updated!"
           req._img = img
         process.nextTick () ->
           next()
   findOne: (req, res, next) ->
-    Image.findOne(_id: req.params.id, published: true).populate("who tags").exec (err, image) ->
+    Image.findOne(_id: req.params.id).populate("who tags").exec (err, image) ->
       if err?
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
@@ -61,7 +61,7 @@ _images = module.exports =
         req.flash "info", type: "error", title: "Oh Snap!", msg: "No image found... sorry, try again."
         next()
   findAll: (req, res, next) ->
-    Image.findAll published: true, (err, image) ->
+    Image.findAll (err, image) ->
       if err
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
@@ -73,9 +73,8 @@ _images = module.exports =
         next()
   pagesPagination: (req, res, next) ->
     sort = {ts: -1}
-
     Image
-      .find({published: true})
+      .find()
       .sort(sort)
       .paginate {page: req.params.page, perPage: 5}, (err, pages) ->
         if err
