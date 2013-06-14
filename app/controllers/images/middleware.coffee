@@ -67,11 +67,11 @@ _images = module.exports =
         if tags.length > 0
 
           img = {}
-          img.tags = image.tags || []
-          
-          for t in [0..tags.length]
-            do (t) ->
-              img.tags.push name: tags[t]
+          img.tags = []
+
+          for tag in tags 
+            do (tag) -> 
+              img.tags.push name: tag
               img.title = if req.body.title? then req.body.title else undefined
               img.published = if req.body.published? then req.body.published else undefined
 

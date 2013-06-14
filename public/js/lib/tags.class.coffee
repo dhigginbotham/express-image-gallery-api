@@ -15,7 +15,7 @@ $ ->
     
     add = (tag, inputid) -> 
       baseid = inputid.split('feauxinput_').pop()
-      window['tags'][baseid].push tag
+      window['tags'][baseid].push tag if tag isnt ""
       span  =   createElem "span",  "",   { "class" : "badge" }
       i     =   createElem "i",     "",  { "class" : "icon-remove-sign" }
       i.onclick = -> removetag(this) 
