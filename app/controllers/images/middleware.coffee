@@ -38,7 +38,7 @@ _images = module.exports =
       img =
         title: req.body.title
         published: published
-        # tags: tags
+        tags: tags
 
       Image.update _id: req.params.id, img, safe: true, (err, img) ->
         if err?
@@ -47,11 +47,12 @@ _images = module.exports =
         if img?
           req.flash "info", type: "success", title: "Awesome", msg: "Image data successfully updated!"
           req._img = img
-        process.nextTick () ->
           next()
   findOne: (req, res, next) ->
     Image.findOne(_id: req.params.id).populate("who tags").exec (err, image) ->
       if err?
+        console.log "ERROR::::::"
+        console.log err.message
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
       if image?

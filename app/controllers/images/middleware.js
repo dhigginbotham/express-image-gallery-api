@@ -50,7 +50,8 @@ _images = module.exports = {
       console.log(tags);
       img = {
         title: req.body.title,
-        published: published
+        published: published,
+        tags: tags
       };
       return Image.update({
         _id: req.params.id
@@ -72,10 +73,8 @@ _images = module.exports = {
             msg: "Image data successfully updated!"
           });
           req._img = img;
-        }
-        return process.nextTick(function() {
           return next();
-        });
+        }
       });
     }
   },
@@ -84,6 +83,8 @@ _images = module.exports = {
       _id: req.params.id
     }).populate("who tags").exec(function(err, image) {
       if (err != null) {
+        console.log("ERROR::::::");
+        console.log(err.message);
         req.flash("info", {
           type: "error",
           title: "Oh Snap!",
