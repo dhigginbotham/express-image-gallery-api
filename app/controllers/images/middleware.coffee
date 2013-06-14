@@ -1,4 +1,5 @@
 Image = require "../../models/images"
+helpers = require "../../../helpers"
 
 # native modules
 fs = require "fs"
@@ -12,6 +13,26 @@ _images = module.exports =
       fs.writeFile req._path, data, (err) ->
         next err, null if err?
         next null, data
+        
+  saveImg: (req, res, next) ->
+    if req.files.image? && req.files.image.length > 0
+      if req.files.image.name.match /\.(jpe?g|gif|png)$/gi
+        reg = /^(.*\/)?[^\/]+\.(jpe?g|gif|png)$/i
+        repChar = "$1#{helpers.uniqueId(30)}.$2"
+        newImageName = req.files.image.name.replace reg, repChar
+
+        imagePath = path.join __dirname, "..", "..", "..", "public", "uploads", newImageName
+        fs.readFile req.files.image.path, (err, data) ->
+          fs.writeFile imagePath, data, (err) ->
+            next err, null if err?
+            console.log err
+            req._imgName = newImageName
+            next()
+      else
+        next "unsupported image format uploaded, try again.", null
+    else
+      req._imgName = null
+      next()
 
   handle: (req, res, next) ->
 

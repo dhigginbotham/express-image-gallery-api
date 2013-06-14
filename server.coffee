@@ -173,7 +173,7 @@ app.post "/images/:id/edit", images_middleware.editImg, (req, res) ->
 
 app.get "/images/:page", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
 
-app.post "/upload", images_middleware.createFile, images_middleware.handle, imagesController.upload
+app.post "/upload", images_middleware.saveImg, images_middleware.handle, imagesController.upload
 
 # go!
 server.listen app.get("port"), () ->

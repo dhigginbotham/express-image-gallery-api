@@ -1,9 +1,8 @@
 # node
 node_modules/
-node_modules/*
 
 # npm-debug.log
 npm-debug.log
 
 # public uploads folder
-public/uploads/*.*
+public/uploads/
