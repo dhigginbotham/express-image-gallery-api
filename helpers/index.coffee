@@ -22,6 +22,16 @@ slugify = (str) ->
   stripped = stripVowelAccent str
   return stripped.replace(/[^A-Za-z0-9 ]/g, "").replace(/[ ]+/g, "-").toLowerCase().substr 0, 81
 
+uniqueId = (length=8) ->
+  id = ""
+  id += Math.random().toString(36).substr(2) while id.length < length
+  id.substr 0, length
+
+matchImg = (String) ->
+  String.match /\.(jpe?g|gif|png)$/gi
+
 module.exports =
   trim: trim
   slugify: slugify
+  uniqueId: uniqueId
+  matchImg: matchImg
