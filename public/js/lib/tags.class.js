@@ -10,7 +10,7 @@ $(function() {
   return (app = function() {
     var add, analyzetags, fixlabel, init, removetag, updateinput;
 
-    window.tags = [];
+    window.tags = {};
     app = {};
     fixlabel = function(id) {
       return $('label').each(function() {
@@ -20,23 +20,24 @@ $(function() {
       });
     };
     analyzetags = function(input) {
-      var tag, _i, _len, _ref;
+      var baseid, tag, _i, _len, _ref;
 
+      baseid = input.getAttribute('id').split('feauxinput_').pop();
       _ref = input.value.split(',');
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         tag = _ref[_i];
-        if (!(__indexOf.call(window.tags, tag) >= 0) && tag !== "") {
+        if (!(__indexOf.call(window['tags'][baseid], tag) >= 0) && tag !== "") {
           add(tag, input.getAttribute('id'));
         }
       }
       input.value = "";
-      return updateinput(input.getAttribute('id').split('feauxinput_').pop());
+      return updateinput(baseid);
     };
     add = function(tag, inputid) {
       var baseid, i, span;
 
-      window.tags.push(tag);
       baseid = inputid.split('feauxinput_').pop();
+      window['tags'][baseid].push(tag);
       span = createElem("span", "", {
         "class": "badge"
       });
@@ -54,7 +55,7 @@ $(function() {
       var index, tag, tagscsv, _i, _len, _ref;
 
       tagscsv = "";
-      _ref = window.tags;
+      _ref = window['tags'][baseid];
       for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
         tag = _ref[index];
         tagscsv += (index === 0 ? tag : "," + tag);
@@ -62,11 +63,12 @@ $(function() {
       return document.getElementById(baseid).value = tagscsv;
     };
     removetag = function(i) {
-      var tagindex;
+      var baseid, tagindex;
 
-      tagindex = window.tags.indexOf($(i.parentNode).text());
-      window.tags.splice(tagindex, 1);
-      updateinput(i.parentNode.parentNode.getAttribute('id').split('iconcontainer_').pop());
+      baseid = i.parentNode.parentNode.getAttribute('id').split('iconcontainer_').pop();
+      tagindex = window['tags'][baseid].indexOf($(i.parentNode).text());
+      window['tags'][baseid].splice(tagindex, 1);
+      updateinput(baseid);
       return i.parentNode.parentNode.removeChild(i.parentNode);
     };
     return (init = function() {
@@ -74,6 +76,7 @@ $(function() {
         var iconcontainer, input;
 
         this.style.display = 'none';
+        window['tags'][this.getAttribute('id')] = [];
         iconcontainer = createElem("div", "", {
           "id": "iconcontainer_" + (this.getAttribute('id'))
         });
