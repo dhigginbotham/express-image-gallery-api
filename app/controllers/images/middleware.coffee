@@ -1,4 +1,5 @@
 Image = require "../../models/images"
+Tag = require "../../models/tags"
 helpers = require "../../../helpers"
 
 # native modules
@@ -54,13 +55,13 @@ _images = module.exports =
     console.log req.body
     if req.body? && req.body.title?
       published = if req.body.published? then true else false
+
       tags = if req.body.tagInput? then req.body.tagInput.split ',' else []
-      console.log "THESE ARE THE TAGS >>> "
-      console.log tags
+      tag
+
       img =
         title: req.body.title
         published: published
-        tags: tags
 
       Image.update _id: req.params.id, img, safe: true, (err, img) ->
         if err?
@@ -73,6 +74,7 @@ _images = module.exports =
   findOne: (req, res, next) ->
     Image.findOne(_id: req.params.id).populate("who tags").exec (err, image) ->
       if err?
+        console.log image.tags
         console.log "ERROR::::::"
         console.log err.message
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
