@@ -2,7 +2,7 @@
 
 <div class="container">
 
-  <form method="post" enctype="multipart/form-data" id="editImgForm">
+  <form method="post" enctype="multipart/form-data" id="editImgForm" >
     <legend>Edit Image Data</legend>
   {{#images}}
     <div class="row">
@@ -38,10 +38,10 @@
 
     {{! start tags }}
       <div class="span4">
-        <label for="control-label">Tags:</label>
-        <input type="text" id="tagInput" />
-        <div id="tagContainer"></div>
-        <div id="tagHidden"></div>
+        <label for="tagInput">Tags:</label>
+        <input type="text" id="tagInput" class="taggable" />
+{{!         <div id="tagContainer"></div>
+        <div id="tagHidden"></div> }}
       </div>
     {{! end tags }}
 

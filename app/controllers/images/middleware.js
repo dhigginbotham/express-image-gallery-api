@@ -51,7 +51,8 @@ _images = module.exports = {
       }
       img = {
         title: req.body.title,
-        published: published
+        published: published,
+        tags: req.body.tagInput.split(',')
       };
       return Image.update({
         _id: req.params.id

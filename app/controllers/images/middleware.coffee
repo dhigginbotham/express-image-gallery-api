@@ -39,6 +39,7 @@ _images = module.exports =
       img =
         title: req.body.title
         published: published
+        tags: req.body.tagInput.split(',')
 
       Image.update _id: req.params.id, img, safe: true, (err, img) ->
         if err?
