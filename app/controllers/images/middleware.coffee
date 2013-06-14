@@ -33,10 +33,12 @@ _images = module.exports =
     if req.body? && req.body.title?
       published = if req.body.published? then true else false
       tags = if req.body.tagInput? then req.body.tagInput.split ',' else []
+      console.log "THESE ARE THE TAGS >>> "
+      console.log tags
       img =
         title: req.body.title
         published: published
-        tags: tags
+        # tags: tags
 
       Image.update _id: req.params.id, img, safe: true, (err, img) ->
         if err?

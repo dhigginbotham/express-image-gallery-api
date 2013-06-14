@@ -46,10 +46,11 @@ _images = module.exports = {
     if ((req.body != null) && (req.body.title != null)) {
       published = req.body.published != null ? true : false;
       tags = req.body.tagInput != null ? req.body.tagInput.split(',') : [];
+      console.log("THESE ARE THE TAGS >>> ");
+      console.log(tags);
       img = {
         title: req.body.title,
-        published: published,
-        tags: tags
+        published: published
       };
       return Image.update({
         _id: req.params.id

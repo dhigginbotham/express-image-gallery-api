@@ -21,7 +21,9 @@ ImageSchema = new Schema
   published: 
     type: Boolean
     default: false
-  tags: Array
+  tags: 
+    type: ObjectId
+    ref: "Tag"
   who: 
     type: String
     ref: "User"
