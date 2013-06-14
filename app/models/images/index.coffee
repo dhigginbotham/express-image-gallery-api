@@ -1,10 +1,12 @@
 string = require "../../../helpers"
 path = require "path"
-
-moment = require "moment"
+supergoose = require "supergoose"
 
 Schema = require("mongoose").Schema
 ObjectId = Schema.Types.ObjectId
+
+TagSchema = new Schema
+  name: String
 
 ImageSchema = new Schema
   _id: ObjectId
@@ -21,13 +23,12 @@ ImageSchema = new Schema
   published: 
     type: Boolean
     default: false
-  tags: 
-    type: ObjectId
-    ref: "Tag"
+  tags: [TagSchema]
   who: 
     type: String
     ref: "User"
 
+ImageSchema.plugin supergoose
 Image = module.exports = db.model "Image", ImageSchema
 
 # ImageSchema.statics.process = processImg = (image) ->

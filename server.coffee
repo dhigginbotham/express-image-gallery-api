@@ -156,19 +156,19 @@ app.post "/pages/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, script
   res.redirect req.get "Referer"
 app.get "/pages/:slug", scripts.embed, nav.render, pages_middleware.findOne, pagesController.single
 
-# pages routes for basic cms stuff
-app.get "/tags/view", scripts.embed, nav.render, tags_middleware.findAll, tagsController.view
-app.get "/tags/add", pass.ensureAuthenticated, pass.ensureAdmin, nav.render, scripts.embed, tagsController.add
-app.post "/tags/add", pass.ensureAuthenticated, pass.ensureAdmin, tags_validate.add, nav.render, tags_middleware.addTag, scripts.embed, tagsController.add
-app.get "/tags/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, tags_middleware.findOne, tagsController.edit
-app.post "/tags/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, tags_middleware.editTag, (req, res) ->
-  res.redirect req.get "Referer"
-app.get "/tags/:slug", scripts.embed, nav.render, tags_middleware.findOne, tagsController.single
+# # pages routes for basic cms stuff
+# app.get "/tags/view", scripts.embed, nav.render, tags_middleware.findAll, tagsController.view
+# app.get "/tags/add", pass.ensureAuthenticated, pass.ensureAdmin, nav.render, scripts.embed, tagsController.add
+# app.post "/tags/add", pass.ensureAuthenticated, pass.ensureAdmin, tags_validate.add, nav.render, tags_middleware.addTag, scripts.embed, tagsController.add
+# app.get "/tags/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, tags_middleware.findOne, tagsController.edit
+# app.post "/tags/:slug/edit", pass.ensureAuthenticated, pass.ensureAdmin, scripts.embed, nav.render, tags_middleware.editTag, (req, res) ->
+#   res.redirect req.get "Referer"
+# app.get "/tags/:slug", scripts.embed, nav.render, tags_middleware.findOne, tagsController.single
 
 # images routes
 app.get "/images", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view
-app.get "/images/:id/edit", scripts.embed, nav.render, tags_middleware.findAll, images_middleware.findOne, imagesController.edit
-app.post "/images/:id/edit", images_middleware.editImg, (req, res) ->
+app.get "/images/:id/edit", scripts.embed, nav.render, images_middleware.findOne, imagesController.edit
+app.post "/images/:id/edit", images_middleware.storeTags, images_middleware.editImg, (req, res) ->
   res.redirect req.get "Referer"
 
 app.get "/images/:page", scripts.embed, nav.render, images_middleware.pagesPagination, imagesController.view

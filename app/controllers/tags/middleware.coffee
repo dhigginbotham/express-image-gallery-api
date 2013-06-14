@@ -77,16 +77,17 @@ _tags = module.exports =
         req.flash "info", type: "error", title: "Oh Snap!", msg: "No tag found... sorry, try again."
         next()
   findAll: (req, res, next) ->
-    Tag.find (err, tag) ->
-        if err
-          req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
-          next()
-        if tag
-          req._tag = tag
-          next()
-        else
-          req.flash "info", type: "error", title: "Oh Snap!", msg: "No pages found... sorry, try again."
-          next()
+    # Tag.find (err, tag) ->
+    #     if err
+    #       req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
+    #       next()
+    #     if tag
+    #       req._tag = tag
+    #       next()
+    #     else
+    #       req.flash "info", type: "error", title: "Oh Snap!", msg: "No pages found... sorry, try again."
+    #       next()
+    next()
   pagesPagination: (req, res, next) ->
     sort = {created: -1}
 
