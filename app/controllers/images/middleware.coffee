@@ -31,15 +31,12 @@ _images = module.exports =
   editImg: (req, res, next) ->
     console.log req.body
     if req.body? && req.body.title?
-      if req.body.published?
-        published = true
-      else
-        published = false
-
+      published = if req.body.published? then true else false
+      tags = if req.body.tagInput? then req.body.tagInput.split ',' else []
       img =
         title: req.body.title
         published: published
-        tags: req.body.tagInput.split(',')
+        tags: tags
 
       Image.update _id: req.params.id, img, safe: true, (err, img) ->
         if err?

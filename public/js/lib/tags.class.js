@@ -87,6 +87,11 @@ $(function() {
             return false;
           }
         });
+        $(input).keydown(function(e) {
+          if (e.keyCode === 13 || e.keyCode === 188) {
+            return false;
+          }
+        });
         this.parentNode.appendChild(input);
         this.parentNode.appendChild(iconcontainer);
         return fixlabel(this.getAttribute('id'));

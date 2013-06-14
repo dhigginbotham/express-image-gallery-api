@@ -28,10 +28,7 @@ ImageSchema = new Schema({
     type: Boolean,
     "default": false
   },
-  tags: {
-    type: ObjectId,
-    ref: "Tag"
-  },
+  tags: Array,
   who: {
     type: String,
     ref: "User"

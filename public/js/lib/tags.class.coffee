@@ -43,6 +43,8 @@ $ ->
           if e.keyCode == 13 or e.keyCode == 188
             analyzetags this
             return false 
+        $(input).keydown (e) -> 
+          return false if e.keyCode == 13 or e.keyCode == 188
         this.parentNode.appendChild input
         this.parentNode.appendChild iconcontainer
         fixlabel this.getAttribute 'id'

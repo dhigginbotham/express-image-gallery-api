@@ -40,19 +40,16 @@ _images = module.exports = {
     });
   },
   editImg: function(req, res, next) {
-    var img, published;
+    var img, published, tags;
 
     console.log(req.body);
     if ((req.body != null) && (req.body.title != null)) {
-      if (req.body.published != null) {
-        published = true;
-      } else {
-        published = false;
-      }
+      published = req.body.published != null ? true : false;
+      tags = req.body.tagInput != null ? req.body.tagInput.split(',') : [];
       img = {
         title: req.body.title,
         published: published,
-        tags: req.body.tagInput.split(',')
+        tags: tags
       };
       return Image.update({
         _id: req.params.id
