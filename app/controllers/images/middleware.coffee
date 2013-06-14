@@ -1,5 +1,4 @@
 Image = require "../../models/images"
-Tag = require "../../models/tags"
 helpers = require "../../../helpers"
 
 # native modules
@@ -51,17 +50,46 @@ _images = module.exports =
       return next err, null if err
       next()
 
+  storeTags: (req, res, next) ->
+    console.log req.body if req.body?
+
+    if req.body? && req.body.tagInput?
+      tags = if req.body.tagInput? then req.body.tagInput.split ',' else []
+      console.log tags if tags?
+      console.log tags.length if tags.length?
+
+      query = _id: req.params.id
+
+      Image.findOne query, (err, image) ->
+
+        if err? then next err, null
+        
+        if tags.length > 0
+
+          img = {}
+          img.tags = image.tags || []
+          
+          for t in [0..tags.length]
+            do (t) ->
+              img.tags.push name: tags[t]
+              img.title = if req.body.title? then req.body.title else undefined
+              img.published = if req.body.published? then req.body.published else undefined
+
+          process.nextTick () ->
+            Image.update query, img, safe: true, (err) ->
+              if err? then return next err, null
+              next()
+
+
   editImg: (req, res, next) ->
     console.log req.body
     if req.body? && req.body.title?
-      published = if req.body.published? then true else false
-
+      published = if req.body.published? then true
       tags = if req.body.tagInput? then req.body.tagInput.split ',' else []
-      tag
 
       img =
         title: req.body.title
-        published: published
+        published: published || undefined
 
       Image.update _id: req.params.id, img, safe: true, (err, img) ->
         if err?
@@ -71,8 +99,9 @@ _images = module.exports =
           req.flash "info", type: "success", title: "Awesome", msg: "Image data successfully updated!"
           req._img = img
           next()
+
   findOne: (req, res, next) ->
-    Image.findOne(_id: req.params.id).populate("who tags").exec (err, image) ->
+    Image.findOne(_id: req.params.id).populate("who").exec (err, image) ->
       if err?
         console.log image.tags
         console.log "ERROR::::::"

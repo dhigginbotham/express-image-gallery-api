@@ -11,6 +11,7 @@
     "mkdirp": ">= 0.3.5",
     "async": "*",
     "sockjs": "*",
+    "supergoose": "*",
     "mongoose": "3.6.x",
     "connect-flash": "0.1.0",
     "connect-mongo": "0.3.x",
