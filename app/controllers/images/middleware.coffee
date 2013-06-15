@@ -107,6 +107,9 @@ _images = module.exports =
         next()
       if image?
         req.findOne = image
+        theTags = "" 
+        theTags += (if index is 0 then tag.name else ",#{tag.name}") for tag,index in req.findOne.tags
+        req.tags = theTags
         next()
       else
         req.flash "info", type: "error", title: "Oh Snap!", msg: "No image found... sorry, try again."

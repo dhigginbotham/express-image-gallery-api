@@ -33,6 +33,10 @@
           <p class="help-block"></p>
         </div>
       </div>
+      <div class="span4">
+        <label for="tagInput">Tags:</label>
+        <input type="text" id='grabme' value="{{tags}}">
+      </div>
     {{! end image }}
   {{/images}}
 
@@ -40,8 +44,6 @@
       <div class="span4">
         <label for="tagInput">Tags:</label>
         <input type="text" name="tagInput" id="tagInput" class="taggable" value="{{tags}}" />
-{{!         <div id="tagContainer"></div>
-        <div id="tagHidden"></div> }}
       </div>
     {{! end tags }}
 
