@@ -103,9 +103,6 @@ _images = module.exports =
   findOne: (req, res, next) ->
     Image.findOne(_id: req.params.id).populate("who").exec (err, image) ->
       if err?
-        console.log image.tags
-        console.log "ERROR::::::"
-        console.log err.message
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
       if image?

@@ -39,7 +39,7 @@
     {{! start tags }}
       <div class="span4">
         <label for="tagInput">Tags:</label>
-        <input type="text" name="tagInput" id="tagInput" class="taggable" />
+        <input type="text" name="tagInput" id="tagInput" class="taggable" value="{{tags}}" />
 {{!         <div id="tagContainer"></div>
         <div id="tagHidden"></div> }}
       </div>

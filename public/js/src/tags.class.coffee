@@ -41,7 +41,7 @@ $ ->
         window['tags'][this.getAttribute('id')] = []        
         # create client-facing feaux inputs so we can clearnly store tags as CSV's within intended input:
         iconcontainer = createElem "div", "", { "id": "iconcontainer_#{this.getAttribute('id')}" }
-        input = createElem "input", "", { "type": "text", "id": "feauxinput_#{this.getAttribute('id')}"}
+        input = createElem "input", "", { "type": "text", "id": "feauxinput_#{this.getAttribute('id')}", "value": this.value }
         $(input).keyup (e) -> 
           if e.keyCode == 13 or e.keyCode == 188
             analyzetags this
@@ -51,6 +51,7 @@ $ ->
         this.parentNode.appendChild input
         this.parentNode.appendChild iconcontainer
         fixlabel this.getAttribute 'id'
+        analyzetags input
 
 createElem = (type,innards,attributes) -> 
   elem = document.createElement type
