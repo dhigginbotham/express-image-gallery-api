@@ -14,6 +14,7 @@ scripts = module.exports =
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/:slug/edit', type: 'js', exclude: null}
     {src: '/js/lib/tags.class.js', name: 'tags.class.js', where: 'foot', uri: '/images/:id/edit', type: 'js', exclude: null}
+    {src: '/js/lib/keyboardshortcuts.js', name: 'keyboardshortcuts.js', where: 'foot', uri: '/images/:id/edit', type: 'js', exclude: null}
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}

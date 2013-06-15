@@ -39,7 +39,7 @@ $ ->
       $('.taggable').each ->
         this.style.display = 'none'
         window['tags'][this.getAttribute('id')] = []        
-        # create client-facing feaux inputs so we can clearnly store tags as CSV's within intended input:
+        # create client-facing feaux inputs so we can cleanly store tags as CSV's within intended input:
         iconcontainer = createElem "div", "", { "id": "iconcontainer_#{this.getAttribute('id')}" }
         input = createElem "input", "", { "type": "text", "id": "feauxinput_#{this.getAttribute('id')}", "value": this.value }
         $(input).keyup (e) -> 
@@ -48,6 +48,7 @@ $ ->
             return false 
         $(input).keydown (e) -> 
           return false if e.keyCode == 13 or e.keyCode == 188
+        input.onblur = -> analyzetags this
         this.parentNode.appendChild input
         this.parentNode.appendChild iconcontainer
         fixlabel this.getAttribute 'id'

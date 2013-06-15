@@ -92,6 +92,9 @@
               return false;
             }
           });
+          input.onblur = function() {
+            return analyzetags(this);
+          };
           this.parentNode.appendChild(input);
           this.parentNode.appendChild(iconcontainer);
           fixlabel(this.getAttribute('id'));
