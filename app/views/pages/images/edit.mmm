@@ -46,7 +46,7 @@
       <div class="span12">
         <div class="repeaterblock">
           <label for="createAttributeLabels">Create Categories for Information</label>
-          <input style="float:left" type="text" id="createAttributeLabels" class="taggable" data-taggable-callback="populatenestable" value="test1,test2,test3,test4"/>
+          <input style="float:left" type="text" id="createAttributeLabels" class="taggable" data-taggable-callback="populatenestable" value="{{! test1,test2,test3,test4 }}"/>
         </div>
       </div>
     </div>

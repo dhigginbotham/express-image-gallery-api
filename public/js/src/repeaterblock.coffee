@@ -6,11 +6,10 @@ window.populatenestable = (baseid) ->
 class repeaterblock 
 	items: []
 	constructor: (@inputid,@baseinput,@iconcontainer,@basecontainer) ->
-		# set up vars here if we need them
-		# console.log "creating object for input with ID: '#{@inputid}'"
-		# console.log @baseinput
+		# init: 
 		do @setupnestable
 		do @update
+		# other misc. setup: 
 		document.getElementById("feauxinput_#{@inputid}").style.float = 'left'
 	update: -> 
 		newItems = []
@@ -26,12 +25,9 @@ class repeaterblock
 		li.appendChild div
 		@nest.appendChild li
 		console.log @nest
-
 	setupnestable: -> 
 		div = createElem 'div', '', { 'class': 'dd' }
 		@nest = createElem 'ol', '', { 'class': 'dd-list' } 
-
-		# div.innerHTML = '<div class="dd"><ol class="dd-list"><li class="dd-item" data-id="1"><div class="dd-handle"> 1</div></li><li class="dd-item" data-id="2"><div class="dd-handle"> 2</div></li><li class="dd-item" data-id="3"><div class="dd-handle"> 3</div><ol class="dd-list"><li class="dd-item" data-id="4"><div class="dd-handle"> 4</div></li><li class="dd-item" data-id="5"><div class="dd-handle"> 5</div></li></ol></li></ol></div>'
 		div.appendChild @nest
 		@basecontainer.appendChild div
 		$(div).nestable()
