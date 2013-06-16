@@ -19,16 +19,24 @@ class repeaterblock
 				newItems.push this
 		@add item for item in newItems
 	add: (item) -> 
-		console.log 'hello'
-		li = createElem 'li', '', { 'class': 'dd-item' }
-		div = createElem 'div', $(item).text(), { 'class': 'dd-handle' } 
-		li.appendChild div
+		li = create nestableitem $(item).text()
 		@nest.appendChild li
-		console.log @nest
+
 	setupnestable: -> 
-		div = createElem 'div', '', { 'class': 'dd' }
-		@nest = createElem 'ol', '', { 'class': 'dd-list' } 
-		div.appendChild @nest
+		div = create 
+			type: 'div'
+			attributes: 
+				'class': 'dd'
+			contains: [
+				type: 'ol'
+				attributes: 
+					'class': 'dd-list'
+				contains: []
+			]
+		@nest = div.getElementsByTagName('ol')[0]
+		# div = createElem 'div', '', { 'class': 'dd' }
+		# @nest = createElem 'ol', '', { 'class': 'dd-list' } 
+		# div.appendChild @nest
 		@basecontainer.appendChild div
 		$(div).nestable()
 
@@ -51,8 +59,50 @@ $ ->
 					theinput = input
 			if inputid then repeaters[inputid] = new repeaterblock inputid,theinput,iconcontainer,this else console.log "Error setting up Repeater Block, missing '.taggable' input."
 
-createElem = (type,innards,attributes) -> 
-  elem = document.createElement type
-  elem.appendChild document.createTextNode innards if typeof innards isnt "undefined" and innards isnt "" 
-  elem.setAttribute key,val for key,val of attributes if typeof attributes isnt "undefined"
-  return elem
+# define some html schemas:
+nestableitem = (text) -> 
+	return {
+		type: 'li'
+		attributes: { 
+			'class': 'dd-item'
+		}
+		contains: [
+			{
+				type: 'div'
+				attributes: {
+					'class': 'dd-handle'
+				}
+				contains: [
+					text,
+				]
+			},
+			{
+				type: 'select'
+				attributes: {}
+				contains: [
+					{
+						type: 'option'
+						attributes: {}
+						contains: ["HELLO WORLD 1"]
+					},
+					{
+						type: 'option'
+						attributes: {}
+						contains: ["HELLO WORLD 2"]
+					},
+					{
+						type: 'option'
+						attributes: {}
+						contains: ["HELLO WORLD 3"]
+					}
+				]
+			},
+			{
+				type: 'i'
+				attributes: {
+					'class': 'icon-remove-circle'
+				}
+				contains: []
+			}
+		]
+	}
