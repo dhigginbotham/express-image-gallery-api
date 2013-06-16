@@ -8,9 +8,8 @@
   $(function() {
     var app;
     return (app = function() {
-      var add, analyzetags, fixlabel, init, removetag, updateinput;
+      var add, analyzetags, execute, fixlabel, init, removetag, updateinput;
       window.tags = {};
-      app = {};
       fixlabel = function(id) {
         return $('label').each(function() {
           if (this.getAttribute('for') === id) {
@@ -18,8 +17,11 @@
           }
         });
       };
-      analyzetags = function(input) {
-        var baseid, tag, _i, _len, _ref;
+      analyzetags = function(input, excludecallback) {
+        var baseid, callback, tag, _i, _len, _ref;
+        if (excludecallback == null) {
+          excludecallback = false;
+        }
         baseid = input.getAttribute('id').split('feauxinput_').pop();
         _ref = input.value.split(',');
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -29,7 +31,13 @@
           }
         }
         input.value = "";
-        return updateinput(baseid);
+        updateinput(baseid);
+        callback = document.getElementById(baseid).getAttribute('data-taggable-callback');
+        if (excludecallback === false) {
+          if (callback != null) {
+            return execute(callback, baseid);
+          }
+        }
       };
       add = function(tag, inputid) {
         var baseid, i, span;
@@ -68,6 +76,15 @@
         updateinput(baseid);
         return i.parentNode.parentNode.removeChild(i.parentNode);
       };
+      execute = function(functionName, baseid) {
+        var fn;
+        fn = window[functionName];
+        if (typeof fn === 'function') {
+          return fn(baseid);
+        } else {
+          return console.log("Taggable Error: Callback Undefined");
+        }
+      };
       return (init = function() {
         return $('.taggable').each(function() {
           var iconcontainer, input;
@@ -93,12 +110,14 @@
             }
           });
           input.onblur = function() {
-            return analyzetags(this);
+            if (this.value !== "") {
+              return analyzetags(this);
+            }
           };
           this.parentNode.appendChild(input);
           this.parentNode.appendChild(iconcontainer);
           fixlabel(this.getAttribute('id'));
-          return analyzetags(input);
+          return analyzetags(input, true);
         });
       })();
     })();

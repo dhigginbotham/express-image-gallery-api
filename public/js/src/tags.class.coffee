@@ -2,16 +2,18 @@ $ = jQuery
 $ -> 
   do app = -> 
     window.tags = {}
-    app = {}
+
     fixlabel = (id) -> 
       $('label').each -> 
         this.setAttribute 'for',"feauxinput_#{id}" if this.getAttribute('for') is id
     
-    analyzetags = (input) -> 
+    analyzetags = (input, excludecallback = false) -> 
       baseid = input.getAttribute('id').split('feauxinput_').pop()
       add tag, input.getAttribute 'id' for tag in input.value.split(',') when !(tag in window['tags'][baseid]) && tag isnt ""
       input.value = ""
       updateinput baseid
+      callback = document.getElementById(baseid).getAttribute('data-taggable-callback')
+      (execute callback, baseid if callback?) if excludecallback is false
     
     add = (tag, inputid) -> 
       baseid = inputid.split('feauxinput_').pop()
@@ -35,6 +37,10 @@ $ ->
       updateinput baseid
       i.parentNode.parentNode.removeChild(i.parentNode)
     
+    execute = (functionName,baseid) -> 
+      fn = window[functionName]
+      if typeof fn is 'function' then fn baseid else console.log "Taggable Error: Callback Undefined"
+
     do init = -> 
       $('.taggable').each ->
         this.style.display = 'none'
@@ -48,11 +54,11 @@ $ ->
             return false 
         $(input).keydown (e) -> 
           return false if e.keyCode == 13 or e.keyCode == 188
-        input.onblur = -> analyzetags this
+        input.onblur = -> analyzetags this if this.value isnt ""
         this.parentNode.appendChild input
         this.parentNode.appendChild iconcontainer
         fixlabel this.getAttribute 'id'
-        analyzetags input
+        analyzetags input,true
 
 createElem = (type,innards,attributes) -> 
   elem = document.createElement type
