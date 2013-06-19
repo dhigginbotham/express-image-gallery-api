@@ -44,8 +44,8 @@ repeatertypes =
 					'class': 'taggable'
 					'value': ''
   		}
-  'features':
-  	name: 'Features List'
+  'tags':
+  	name: 'Features'
   	obj: (id) -> 
   		return {
 	  		type: 'input'
@@ -126,6 +126,7 @@ class repeaterblock
 
 		switch elem.value
 			when "gallery"
+				console.log "GALLERY!"
 				new Dropzone(obj, { url: "/file/post"})
 			when "list" # TODO: change this to be a repeater type in addition to taggable
 				window.taggable obj
