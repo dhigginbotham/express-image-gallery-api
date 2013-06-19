@@ -16,5 +16,5 @@ _images = module.exports =
       flash: req.flash "info"
       que: req.loaded
       images: req.findOne
-      tags: req._tag
+      tags: req.tags
       prefix: "images"

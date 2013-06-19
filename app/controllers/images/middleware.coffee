@@ -67,11 +67,11 @@ _images = module.exports =
         if tags.length > 0
 
           img = {}
-          img.tags = image.tags || []
-          
-          for t in [0..tags.length]
-            do (t) ->
-              img.tags.push name: tags[t]
+          img.tags = []
+
+          for tag in tags 
+            do (tag) -> 
+              img.tags.push name: tag
               img.title = if req.body.title? then req.body.title else undefined
               img.published = if req.body.published? then req.body.published else undefined
 
@@ -103,13 +103,13 @@ _images = module.exports =
   findOne: (req, res, next) ->
     Image.findOne(_id: req.params.id).populate("who").exec (err, image) ->
       if err?
-        console.log image.tags
-        console.log "ERROR::::::"
-        console.log err.message
         req.flash "info", type: "error", title: "Oh Snap!", msg: "There was an error!"
         next()
       if image?
         req.findOne = image
+        theTags = "" 
+        theTags += (if index is 0 then tag.name else ",#{tag.name}") for tag,index in req.findOne.tags
+        req.tags = theTags
         next()
       else
         req.flash "info", type: "error", title: "Oh Snap!", msg: "No image found... sorry, try again."

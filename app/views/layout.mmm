@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>Image Gallery w/ API {{ meta.title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="mgive.com">
     {{> parts/que/header-scripts}}
     <!--[if lt IE 8]>
       <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome-ie7.css" rel="stylesheet">

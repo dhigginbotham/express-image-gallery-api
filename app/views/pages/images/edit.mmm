@@ -1,5 +1,4 @@
 {{>parts/nav/nav}}
-
 <div class="container">
 
   <form method="post" enctype="multipart/form-data" id="editImgForm" >
@@ -18,7 +17,7 @@
     {{! start published }}
       <div class="control-group span2">
         <div class="controls">
-          <label class="checkbox inline" for="published"><input type="checkbox" id="published" name="published" value="{{published}}" {{#published}}checked{{/published}}> Published / Visible?</label>
+          <label class="checkbox inline" for="published"><input type="checkbox" id="published" name="published" value="{{published}}" {{#published}}checked{{/published}} /> Published / Visible?</label>
         </div>
       </div>
     {{! end published }}    
@@ -35,17 +34,24 @@
       </div>
     {{! end image }}
   {{/images}}
-
     {{! start tags }}
       <div class="span4">
         <label for="tagInput">Tags:</label>
-        <input type="text" name="tagInput" id="tagInput" class="taggable" />
-{{!         <div id="tagContainer"></div>
-        <div id="tagHidden"></div> }}
+        <input type="text" name="tagInput" id="tagInput" class="taggable" value="{{tags}}" />
       </div>
     {{! end tags }}
-
     </div>
+    {{! start repeater block section}}
+    <div class="row">
+      <div class="span12">
+        <div class="repeaterblock">
+          <label for="createAttributeLabels">Create Categories for Information</label>
+          <input style="float:left" type="text" id="createAttributeLabels" class="taggable" data-taggable-callback="populatenestable" value="mockData1,mockData2,mockData3,mockData4"/>
+          <textarea style='display:none' name="documentAttributes" id="documentAttributes" class="repeaterStore" data-repeater-rel="createAttributeLabels"></textarea>
+        </div>
+      </div>
+    </div>
+    {{! end repeater block }}
     <div class="form-actions">
       {{#images}}<button type="submit" class="btn btn-primary" data-loading-text="Updating..."><i class="icon-ok"></i> Update</button>{{/images}}
       {{^images}}<button type="submit" class="btn btn-primary" data-loading-text="Creating..."><i class="icon-ok"></i> Add</button>{{/images}}

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>repeaterblock.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="createElem.html">
+                createElem.coffee
+              </a>
+            
+              
+              <a class="source" href="keyboardshortcuts.html">
+                keyboardshortcuts.coffee
+              </a>
+            
+              
+              <a class="source" href="repeaterblock.html">
+                repeaterblock.coffee
+              </a>
+            
+              
+              <a class="source" href="tags.class.html">
+                tags.class.coffee
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>repeaterblock.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>repeaters object helps us keep track of all repeaters used on a page: repeaters[.taggable.inputid]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>repeaters = {}
+repeateroptions = []
+count = <span class="number">0</span>
+window.<span class="function"><span class="title">populatenestable</span></span> = (baseid) -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>this callback is executed when the related &#39;.taggable&#39; input is updated</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">do</span> repeaters[baseid].update
+
+window.<span class="function"><span class="title">removeicon</span></span> = (elem) -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>call the repeater function to remove the repeater element</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	repeaters[elem.getAttribute <span class="string">'data-repeaterid'</span>].remove elem
+
+window.<span class="function"><span class="title">updateinputtype</span></span> = (elem) -&gt; 
+	repeaters[elem.getAttribute(<span class="string">'data-repeater-id'</span>)].updateinputtype elem
+
+<span class="class"><span class="keyword">class</span> <span class="title">repeaterblock</span> </span>
+
+	constructor: (<span class="property">@inputid</span>,<span class="property">@baseinput</span>,<span class="property">@iconcontainer</span>,<span class="property">@basecontainer</span>,<span class="property">@repeaterstore</span>) -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>store items (DOM: .badge) here: @items[inputid]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="property">@items</span> = {}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>store repeater data here: -&gt; serialize this array and put it into the @repeaterstore</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="property">@data</span> = {}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>init functions: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">do</span> <span class="property">@setupnestable</span>
+		<span class="keyword">do</span> <span class="property">@update</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>other misc. setup: TODO: this should be done in the CSS of course of horse</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		document.getElementById(<span class="string">"feauxinput_<span class="subst">#{@inputid}</span>"</span>).style.float = <span class="string">'left'</span>
+	update: -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Loop through &#39;span.badge&#39; elements to find new additions.  Because the badges are invisible
+to the user, we do not need to worry about them being removed through .taggable methods:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		newItems = []
+		$(<span class="property">@iconcontainer</span>).children(<span class="string">'span.badge'</span>).each -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>add to &amp; check for &#39;.already_nested&#39; class to find the new inputs</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="keyword">if</span> !($(<span class="keyword">this</span>).hasClass <span class="string">'already_nested'</span>) 
+				$(<span class="keyword">this</span>).addClass <span class="string">'already_nested'</span>
+				newItems.push <span class="keyword">this</span>
+		<span class="keyword">for</span> item <span class="keyword">in</span> newItems
+			text = $(item).text()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>dispatch the new items to repeaterblock.add function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="property">@add</span> text</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>store reference to each new item in repeaterblock.items (so we can programatically click the &#39;span.badge&#39; and remove it from &#39;.taggable&#39;)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="property">@items</span>[text] = item
+	add: (text) -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>create a nestable item and append it to the @nest</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		li = create nestableitem text, <span class="property">@inputid</span>
+		<span class="property">@nest</span>.appendChild li</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>add this nestable item to @data w/ useful sub properties: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="property">@data</span>[text] = <span class="string">'item'</span>: li, <span class="string">'order'</span>: count, <span class="string">'inputcontainer'</span>: $(li).children(<span class="string">'.inputholder'</span>)[<span class="number">0</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>remove this public testing variable: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		window.x = <span class="property">@data</span> <span class="comment"># this can be used to see how data storage is going</span>
+		++count
+	remove: (elem) -&gt; 
+		text = elem.getAttribute <span class="string">'data-repeater-text'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>remove &#39;tag&#39; using built in &#39;taggable&#39; methods: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$(<span class="property">@items</span>[text].getElementsByTagName(<span class="string">'i'</span>)[<span class="number">0</span>]).click()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>get &amp; remove the nestable item itself: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		listitem = document.getElementById <span class="string">"dd_item_<span class="subst">#{text}</span>"</span>
+		listitem.parentNode.removeChild listitem
+		<span class="keyword">delete</span> <span class="property">@data</span>[text]
+		--count
+	updateinputtype: (elem) -&gt; 
+		text = elem.getAttribute <span class="string">'data-repeater-text'</span>
+		<span class="property">@data</span>[text][<span class="string">'inputcontainer'</span>].innerHTML = <span class="string">""</span>
+		obj = create repeatertypes[elem.value].obj <span class="string">"dd_item_value_<span class="subst">#{text}</span>"</span>
+		
+		<span class="property">@data</span>[text][<span class="string">'inputcontainer'</span>].appendChild obj
+
+		<span class="keyword">switch</span> elem.value
+			<span class="keyword">when</span> <span class="string">"gallery"</span>
+				console.log <span class="string">"GALLERY!"</span>
+				<span class="keyword">new</span> Dropzone(obj, { url: <span class="string">"/file/post"</span>})
+			<span class="keyword">when</span> <span class="string">"list"</span>
+				window.taggable obj
+
+	setupnestable: -&gt; 
+		div = create 
+			type: <span class="string">'div'</span>
+			attributes: 
+				<span class="string">'class'</span>: <span class="string">'dd'</span>
+			contains: [
+				type: <span class="string">'ol'</span>
+				attributes: 
+					<span class="string">'class'</span>: <span class="string">'dd-list'</span>
+					<span class="string">'id'</span>: <span class="property">@inputid</span>
+				contains: []
+			]
+		<span class="property">@nest</span> = div.getElementsByTagName(<span class="string">'ol'</span>)[<span class="number">0</span>]
+		<span class="property">@basecontainer</span>.appendChild div
+		$(div).nestable()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>define some html schemas:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="function"><span class="title">nestableitem</span></span> = (text,id) -&gt; 
+	<span class="keyword">return</span> {
+		type: <span class="string">'li'</span>
+		attributes: { <span class="string">'class'</span>: <span class="string">'dd-item'</span>, <span class="string">'data-parent-id'</span>: id, <span class="string">'id'</span>: <span class="string">"dd_item_<span class="subst">#{text}</span>"</span> }
+		contains: [
+			{
+				type: <span class="string">'div'</span>
+				attributes: { <span class="string">'class'</span>: <span class="string">'dd-handle'</span> }
+				contains: [ text ]
+			},
+			{
+				type: <span class="string">'select'</span>
+				attributes: { <span class="string">'change'</span>: <span class="string">'updateinputtype'</span>, <span class="string">'data-repeater-id'</span>: id, <span class="string">'data-repeater-text'</span>: text }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>repeater options is built at setup</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>				contains: repeateroptions 
+			},
+			{
+				type: <span class="string">'i'</span>
+				attributes: { <span class="string">'class'</span>: <span class="string">'icon-remove-circle'</span>, <span class="string">'click'</span>: <span class="string">"removeicon"</span>, <span class="string">'data-repeaterid'</span>: id, <span class="string">'data-repeater-text'</span>: text }
+			}, 
+			{
+				type: <span class="string">'div'</span>
+				attributes: { <span class="string">'class'</span>: <span class="string">'inputholder'</span>, <span class="string">'id'</span>: <span class="string">"inputholder_<span class="subst">#{text}</span>"</span>}
+			}
+		]
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>add an item here and the idea is it will auto-populate thru everything else</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>repeatertypes =  
+	<span class="string">'gallery'</span>:  
+    name: <span class="string">'Insert Gallery/Image'</span>
+    obj: (id) -&gt; 
+    	<span class="keyword">return</span> {
+	      type: <span class="string">'form'</span>
+		    attributes: { <span class="string">'id'</span>: id, <span class="string">'action'</span>: <span class="string">'/file-upload'</span>, <span class="string">'class'</span>: <span class="string">'dropzone'</span> }
+    	}
+  <span class="string">'textlong'</span>: 
+  	name: <span class="string">'SOME STRING HERE'</span>
+  	obj: (id) -&gt; 
+  		<span class="keyword">return</span> {
+	  		type: <span class="string">'textarea'</span>
+  		}
+  <span class="string">'textshort'</span>: 
+  	name: <span class="string">'SOME STRING HERE'</span>
+  	obj: (id) -&gt; 
+  		<span class="keyword">return</span> {
+	  		type: <span class="string">'input'</span>
+		 		attributes:
+		 			<span class="string">'id'</span>: id 
+					<span class="string">'type'</span>: <span class="string">'text'</span>
+  		}
+  <span class="string">'list'</span>: <span class="comment"># utilize taggable and repeaterblock to create a simple organizable list w/ different numbering styles available1</span>
+  	name: <span class="string">'List of Items'</span>
+  	obj: (id) -&gt; 
+  		<span class="keyword">return</span> {
+	  		type: <span class="string">'input'</span>
+				attributes:
+					<span class="string">'id'</span>: id 
+					<span class="string">'type'</span>: <span class="string">'text'</span>
+					<span class="string">'class'</span>: <span class="string">'taggable'</span>
+					<span class="string">'value'</span>: <span class="string">''</span>
+  		}
+  <span class="string">'tags'</span>:
+  	name: <span class="string">'Some String Here'</span>
+  	obj: (id) -&gt; 
+  		<span class="keyword">return</span> {
+	  		type: <span class="string">'input'</span>
+				attributes:
+					<span class="string">'id'</span>: id 
+					<span class="string">'type'</span>: <span class="string">'text'</span>
+					<span class="string">'class'</span>: <span class="string">'taggable'</span>
+  		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>setup all repeater blocks on DOM READY: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>$ = jQuery
+$ -&gt; 
+	<span class="keyword">do</span> <span class="function"><span class="title">init</span></span> = -&gt;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>setup the repeateroptions</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">for</span> key,val <span class="keyword">of</span> repeatertypes
+			repeateroptions.push 
+				type: <span class="string">'option'</span>
+				attributes: 
+					<span class="string">'value'</span>: key
+				contains: [ val.name ]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>find all &#39;.repeaterblock&#39; elements: </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		$(<span class="string">'.repeaterblock'</span>).each -&gt; 
+			inputid = <span class="literal">false</span>
+			innerdivs = <span class="keyword">this</span>.getElementsByTagName <span class="string">'div'</span>
+			<span class="keyword">for</span> div <span class="keyword">in</span> innerdivs
+					<span class="keyword">if</span> div.getAttribute(<span class="string">'id'</span>).indexOf <span class="string">'icon_container'</span> &gt; -<span class="number">1</span>
+						iconcontainer = div
+						div.style.display = <span class="string">'none'</span>
+			innerinputs = <span class="keyword">this</span>.getElementsByTagName <span class="string">'input'</span>
+			<span class="keyword">for</span> input <span class="keyword">in</span> innerinputs
+				<span class="keyword">if</span> input.getAttribute(<span class="string">'class'</span>) <span class="keyword">is</span> <span class="string">'taggable'</span>
+					inputid = input.getAttribute <span class="string">'id'</span> 
+					theinput = input
+			<span class="keyword">for</span> textarea <span class="keyword">in</span> <span class="keyword">this</span>.getElementsByTagName <span class="string">'textarea'</span> 
+				repeaterstore = textarea <span class="keyword">if</span> textarea.getAttribute(<span class="string">'data-repeater-rel'</span>) <span class="keyword">is</span> inputid 
+			<span class="keyword">if</span> inputid <span class="keyword">then</span> repeaters[inputid] = <span class="keyword">new</span> repeaterblock inputid,theinput,iconcontainer,<span class="keyword">this</span>,repeaterstore <span class="keyword">else</span> console.log <span class="string">"Error setting up Repeater Block, missing '.taggable' input."</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
