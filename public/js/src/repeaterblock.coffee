@@ -1,3 +1,60 @@
+# moved this here for ease of access: define new options for the repeater block type here: 
+# add an item here and the idea is it will auto-populate thru everything else unless it needs
+# special activation like a nicEdit WYSIWYG editor, in which case use the switch statement in 
+# repeaterblock.updateinputtype ->
+repeatertypes =
+	'heading':
+		name: 'Heading or Sub-Heading/Category'
+		obj: false 
+	'gallery':  
+    name: 'Insert Gallery/Image'
+    obj: (id) -> 
+    	return {
+	      type: 'form'
+		    attributes: { 'id': id, 'action': '/file-upload', 'class': 'dropzone' }
+    	}
+  'textlong': 
+  	name: 'Long Text Entry'
+  	obj: (id) -> 
+  		return {
+	  		type: 'textarea'
+	  		attributes: { 
+	  			'id': id 
+	  			'cols': '500'
+	  		}
+  		}
+  'textshort': 
+  	name: 'Short Text Entry'
+  	obj: (id) -> 
+  		return {
+	  		type: 'input'
+				attributes:
+					'id': id 
+					'type': 'text'
+					'value': ''
+  		}
+  'list': # utilize taggable and repeaterblock to create a simple organizable list w/ different numbering styles available
+  	name: 'List of Items'
+  	obj: (id) -> 
+  		return {
+	  		type: 'input'
+				attributes:
+					'id': id 
+					'type': 'text'
+					'class': 'taggable'
+					'value': ''
+  		}
+  'tags':
+  	name: 'Features'
+  	obj: (id) -> 
+  		return {
+	  		type: 'input'
+				attributes:
+					'id': id 
+					'type': 'text'
+					'class': 'taggable'
+  		}
+
 # repeaters object helps us keep track of all repeaters used on a page: repeaters[.taggable.inputid]
 repeaters = {}
 repeateroptions = []
@@ -120,57 +177,6 @@ nestableitem = (text,id) ->
 			}
 		]
 	}
-
-# add an item here and the idea is it will auto-populate thru everything else
-repeatertypes =
-	'heading':
-		name: 'Heading or Sub-Heading/Category'
-		obj: false 
-	'gallery':  
-    name: 'Insert Gallery/Image'
-    obj: (id) -> 
-    	return {
-	      type: 'form'
-		    attributes: { 'id': id, 'action': '/file-upload', 'class': 'dropzone' }
-    	}
-  'textlong': 
-  	name: 'Long Text Entry'
-  	obj: (id) -> 
-  		return {
-	  		type: 'textarea'
-	  		attributes: { 'id': id }
-  		}
-  'textshort': 
-  	name: 'Short Text Entry'
-  	obj: (id) -> 
-  		return {
-	  		type: 'input'
-				attributes:
-					'id': id 
-					'type': 'text'
-					'value': ''
-  		}
-  'list': # utilize taggable and repeaterblock to create a simple organizable list w/ different numbering styles available
-  	name: 'List of Items'
-  	obj: (id) -> 
-  		return {
-	  		type: 'input'
-				attributes:
-					'id': id 
-					'type': 'text'
-					'class': 'taggable'
-					'value': ''
-  		}
-  'tags':
-  	name: 'Features'
-  	obj: (id) -> 
-  		return {
-	  		type: 'input'
-				attributes:
-					'id': id 
-					'type': 'text'
-					'class': 'taggable'
-  		}
 
 # setup all repeater blocks on DOM READY: 
 $ = jQuery

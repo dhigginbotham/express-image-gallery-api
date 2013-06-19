@@ -2,6 +2,78 @@
 (function() {
   var $, count, nestableitem, repeaterblock, repeateroptions, repeaters, repeatertypes;
 
+  repeatertypes = {
+    'heading': {
+      name: 'Heading or Sub-Heading/Category',
+      obj: false
+    },
+    'gallery': {
+      name: 'Insert Gallery/Image',
+      obj: function(id) {
+        return {
+          type: 'form',
+          attributes: {
+            'id': id,
+            'action': '/file-upload',
+            'class': 'dropzone'
+          }
+        };
+      }
+    },
+    'textlong': {
+      name: 'Long Text Entry',
+      obj: function(id) {
+        return {
+          type: 'textarea',
+          attributes: {
+            'id': id,
+            'cols': '500'
+          }
+        };
+      }
+    },
+    'textshort': {
+      name: 'Short Text Entry',
+      obj: function(id) {
+        return {
+          type: 'input',
+          attributes: {
+            'id': id,
+            'type': 'text',
+            'value': ''
+          }
+        };
+      }
+    },
+    'list': {
+      name: 'List of Items',
+      obj: function(id) {
+        return {
+          type: 'input',
+          attributes: {
+            'id': id,
+            'type': 'text',
+            'class': 'taggable',
+            'value': ''
+          }
+        };
+      }
+    },
+    'tags': {
+      name: 'Features',
+      obj: function(id) {
+        return {
+          type: 'input',
+          attributes: {
+            'id': id,
+            'type': 'text',
+            'class': 'taggable'
+          }
+        };
+      }
+    }
+  };
+
   repeaters = {};
 
   repeateroptions = [];
@@ -170,77 +242,6 @@
         }
       ]
     };
-  };
-
-  repeatertypes = {
-    'heading': {
-      name: 'Heading or Sub-Heading/Category',
-      obj: false
-    },
-    'gallery': {
-      name: 'Insert Gallery/Image',
-      obj: function(id) {
-        return {
-          type: 'form',
-          attributes: {
-            'id': id,
-            'action': '/file-upload',
-            'class': 'dropzone'
-          }
-        };
-      }
-    },
-    'textlong': {
-      name: 'Long Text Entry',
-      obj: function(id) {
-        return {
-          type: 'textarea',
-          attributes: {
-            'id': id
-          }
-        };
-      }
-    },
-    'textshort': {
-      name: 'Short Text Entry',
-      obj: function(id) {
-        return {
-          type: 'input',
-          attributes: {
-            'id': id,
-            'type': 'text',
-            'value': ''
-          }
-        };
-      }
-    },
-    'list': {
-      name: 'List of Items',
-      obj: function(id) {
-        return {
-          type: 'input',
-          attributes: {
-            'id': id,
-            'type': 'text',
-            'class': 'taggable',
-            'value': ''
-          }
-        };
-      }
-    },
-    'tags': {
-      name: 'Features',
-      obj: function(id) {
-        return {
-          type: 'input',
-          attributes: {
-            'id': id,
-            'type': 'text',
-            'class': 'taggable'
-          }
-        };
-      }
-    }
   };
 
   $ = jQuery;
