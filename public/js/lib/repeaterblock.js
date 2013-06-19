@@ -59,8 +59,8 @@
         };
       }
     },
-    'tags': {
-      name: 'Features',
+    'features': {
+      name: 'Features List',
       obj: function(id) {
         return {
           type: 'input',
@@ -160,7 +160,6 @@
       }
       switch (elem.value) {
         case "gallery":
-          console.log("GALLERY!");
           return new Dropzone(obj, {
             url: "/file/post"
           });
