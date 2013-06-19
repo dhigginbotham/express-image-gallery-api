@@ -75,6 +75,8 @@ class repeaterblock
 				window.taggable obj
 			when "features"
 				window.taggable obj
+			when "textlong"
+				new nicEditor({fullPanel:true}).panelInstance "dd_item_value_#{text}"
 	setupnestable: -> 
 		div = create 
 			type: 'div'
@@ -136,6 +138,7 @@ repeatertypes =
   	obj: (id) -> 
   		return {
 	  		type: 'textarea'
+	  		attributes: { 'id': id }
   		}
   'textshort': 
   	name: 'Short Text Entry'

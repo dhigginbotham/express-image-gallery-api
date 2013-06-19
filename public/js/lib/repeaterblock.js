@@ -96,6 +96,10 @@
           return window.taggable(obj);
         case "features":
           return window.taggable(obj);
+        case "textlong":
+          return new nicEditor({
+            fullPanel: true
+          }).panelInstance("dd_item_value_" + text);
       }
     };
 
@@ -190,7 +194,10 @@
       name: 'Long Text Entry',
       obj: function(id) {
         return {
-          type: 'textarea'
+          type: 'textarea',
+          attributes: {
+            'id': id
+          }
         };
       }
     },
