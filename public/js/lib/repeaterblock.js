@@ -77,11 +77,15 @@
     };
 
     repeaterblock.prototype.updateinputtype = function(elem) {
-      var obj, text;
+      var append, obj, text;
       text = elem.getAttribute('data-repeater-text');
       this.data[text]['inputcontainer'].innerHTML = "";
-      obj = create(repeatertypes[elem.value].obj("dd_item_value_" + text));
-      this.data[text]['inputcontainer'].appendChild(obj);
+      append = repeatertypes[elem.value].obj;
+      if (append !== false) {
+        obj = create(append("dd_item_value_" + text));
+        console.log(obj);
+        this.data[text]['inputcontainer'].appendChild(obj);
+      }
       switch (elem.value) {
         case "gallery":
           console.log("GALLERY!");
@@ -89,6 +93,8 @@
             url: "/file/post"
           });
         case "list":
+          return window.taggable(obj);
+        case "features":
           return window.taggable(obj);
       }
     };
@@ -163,6 +169,10 @@
   };
 
   repeatertypes = {
+    'heading': {
+      name: 'Heading or Sub-Heading/Category',
+      obj: false
+    },
     'gallery': {
       name: 'Insert Gallery/Image',
       obj: function(id) {
@@ -177,7 +187,7 @@
       }
     },
     'textlong': {
-      name: 'SOME STRING HERE',
+      name: 'Long Text Entry',
       obj: function(id) {
         return {
           type: 'textarea'
@@ -185,14 +195,15 @@
       }
     },
     'textshort': {
-      name: 'SOME STRING HERE',
+      name: 'Short Text Entry',
       obj: function(id) {
         return {
           type: 'input',
           attributes: {
-            'id': id
-          },
-          'type': 'text'
+            'id': id,
+            'type': 'text',
+            'value': ''
+          }
         };
       }
     },
@@ -211,7 +222,7 @@
       }
     },
     'tags': {
-      name: 'Some String Here',
+      name: 'Features',
       obj: function(id) {
         return {
           type: 'input',

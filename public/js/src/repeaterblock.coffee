@@ -61,17 +61,20 @@ class repeaterblock
 	updateinputtype: (elem) -> 
 		text = elem.getAttribute 'data-repeater-text'
 		@data[text]['inputcontainer'].innerHTML = ""
-		obj = create repeatertypes[elem.value].obj "dd_item_value_#{text}"
-		
-		@data[text]['inputcontainer'].appendChild obj
+		append = repeatertypes[elem.value].obj
+		if append isnt false 
+			obj = create append "dd_item_value_#{text}"
+			console.log obj
+			@data[text]['inputcontainer'].appendChild obj
 
 		switch elem.value
 			when "gallery"
 				console.log "GALLERY!"
 				new Dropzone(obj, { url: "/file/post"})
-			when "list"
+			when "list" # TODO: change this to be a repeater type in addition to taggable
 				window.taggable obj
-
+			when "features"
+				window.taggable obj
 	setupnestable: -> 
 		div = create 
 			type: 'div'
@@ -117,7 +120,10 @@ nestableitem = (text,id) ->
 	}
 
 # add an item here and the idea is it will auto-populate thru everything else
-repeatertypes =  
+repeatertypes =
+	'heading':
+		name: 'Heading or Sub-Heading/Category'
+		obj: false 
 	'gallery':  
     name: 'Insert Gallery/Image'
     obj: (id) -> 
@@ -126,21 +132,22 @@ repeatertypes =
 		    attributes: { 'id': id, 'action': '/file-upload', 'class': 'dropzone' }
     	}
   'textlong': 
-  	name: 'SOME STRING HERE'
+  	name: 'Long Text Entry'
   	obj: (id) -> 
   		return {
 	  		type: 'textarea'
   		}
   'textshort': 
-  	name: 'SOME STRING HERE'
+  	name: 'Short Text Entry'
   	obj: (id) -> 
   		return {
 	  		type: 'input'
-		 		attributes:
-		 			'id': id 
+				attributes:
+					'id': id 
 					'type': 'text'
+					'value': ''
   		}
-  'list': # utilize taggable and repeaterblock to create a simple organizable list w/ different numbering styles available1
+  'list': # utilize taggable and repeaterblock to create a simple organizable list w/ different numbering styles available
   	name: 'List of Items'
   	obj: (id) -> 
   		return {
@@ -152,7 +159,7 @@ repeatertypes =
 					'value': ''
   		}
   'tags':
-  	name: 'Some String Here'
+  	name: 'Features'
   	obj: (id) -> 
   		return {
 	  		type: 'input'
