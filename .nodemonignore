@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 public/*
+=======
+public/*
+views/*
+.gitignore
+.gitattributes
+.git/*
+>>>>>>> origin/dave
