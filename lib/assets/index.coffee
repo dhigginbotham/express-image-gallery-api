@@ -25,7 +25,7 @@ scripts = module.exports =
     {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
-    {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: null, type: 'js', exclude: null}
+    # {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '/js/lib/createElem.js', name: 'createElem.js', where: 'foot', uri: null, type: 'js', exclude: null}
     # {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null} # need to get this sorted differently I suppose..
     {src: '/css/vendor/basic.css', name: 'basic.css', where: 'head', uri: '/', type: 'css', exclude: null}
@@ -64,11 +64,13 @@ scripts = module.exports =
     count = 1
     script = scripts.items
 
-    # run a debug log, this should be a constant while in development mode.
-    scripts.logging script, req, (count) ->
-      console.log "\r\n" if scripts.settings.verbose == true
-      console.log "      #{cyan}Included#{reset} #{count} of #{scripts.items.length} #{cyan}files for url:#{reset} [ #{req.url} ]#{reset}" if scripts.settings.verbose == true
-      console.log "\r\n" if scripts.settings.verbose == true
+
+    if scripts.settings.verbose == true
+      # run a debug log, this should be a constant while in development mode.
+      scripts.logging script, req, (count) ->
+        console.log "\r\n" if scripts.settings.verbose == true
+        console.log "      #{cyan}Included#{reset} #{count} of #{scripts.items.length} #{cyan}files for url:#{reset} [ #{req.url} ]#{reset}" if scripts.settings.verbose == true
+        console.log "\r\n" if scripts.settings.verbose == true
 
     Object.create embed =
       head:
@@ -88,5 +90,6 @@ scripts = module.exports =
           embed[ctx.where][ctx.type].push ctx
           count++
 
-    req.loaded = embed
-    next()
+    process.nextTick () ->
+      req.loaded = embed
+      next()
