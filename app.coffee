@@ -2,6 +2,10 @@
 
 # get this party started
 express = require "express"
+SessionStore = require("session-mongoose")(express)
+store = new SessionStore
+  url: "mongodb://localhost/session"
+  interval: 120000 # expiration check worker run interval in millisec (default: 60000)
 flash = require "connect-flash"
 # get this party started
 
@@ -9,7 +13,7 @@ sockjs = require "sockjs"
 sockjs_conf = require "./lib/sockjs/config"
 sockjs_app = require "./lib/sockjs"
 
-app = express()
+app = module.exports = express()
 server = require("http").createServer app
 
 sockjs_app.install sockjs_conf.server_opts, server
