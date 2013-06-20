@@ -6,3 +6,6 @@ npm-debug.log
 
 # public uploads folder
 public/uploads/
+
+# nodemon ignore
+.nodemonignore
