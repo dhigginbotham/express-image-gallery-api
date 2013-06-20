@@ -1,7 +1,9 @@
 ### Express Image Gallery w/ API ###
+conf = require "./conf"
 
 # get this party started
 express = require "express"
+
 flash = require "connect-flash"
 # get this party started
 
@@ -17,11 +19,16 @@ sockjs_app.install sockjs_conf.server_opts, server
 # global connection sharing
 _db = require "./models/db"
 
+# initialize our mongodb dev session store
+SessionStore = require("session-mongoose")(express)
+store = new SessionStore
+  url: conf.db.mongoUrl
+  interval: 120000 # expiration check worker run interval in millisec (default: 60000)
+
 # native modules
 fs = require "fs"
 path = require "path"
 
-conf = require "./conf"
 passport = require "passport"
 _passport = require "./lib/passport"
 
@@ -61,10 +68,15 @@ app.configure () ->
     keepExtensions: true
   app.use express.methodOverride()
   app.use express.cookieParser()
-  app.use express.cookieSession
-    key: conf.cookie.key
-    secret: conf.cookie.secret
+  # SESSION STORE THROUGH MONGODB
+  app.use express.session
+    store: store
     cookie: maxAge: conf.cookie.maxAge
+  # SESSION STORE THROUGH COOKIES
+  # app.use express.cookieSession
+  #   key: conf.cookie.key
+  #   secret: conf.cookie.secret
+  #   cookie: maxAge: conf.cookie.maxAge
   app.use passport.initialize()
   app.use passport.session()
   app.use flash()
