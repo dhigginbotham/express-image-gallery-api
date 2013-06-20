@@ -1,3 +1,6 @@
+express = require "express"
+app = module.exports = express()
+
 conf = require "../../conf"
 
 passport = require "passport"
