@@ -37,8 +37,8 @@ initPath = path.join __dirname, "public", "uploads"
 init = require("./conf/helpers").init initPath
 
 # routes, middleware, etc etc
-users = require "./routes/users"
 home = require "./routes/home"
+users = require "./routes/users"
 images = require "./routes/images"
 pages = require "./routes/pages"
 tags = require "./routes/tags"
@@ -61,10 +61,10 @@ app.use express.bodyParser
 app.use express.methodOverride()
 app.use express.cookieParser()
 # SESSION STORE THROUGH MONGODB
-# app.use express.session
-#   store: store
-#   secret: conf.seed.password
-#   cookie: maxAge: 900000
+app.use express.session
+  store: store
+  secret: conf.seed.password
+  cookie: maxAge: 900000
 # SESSION STORE THROUGH COOKIES
 # app.use express.cookieSession
 #   key: conf.cookie.key
@@ -73,9 +73,18 @@ app.use express.cookieParser()
 app.use passport.initialize()
 app.use passport.session()
 app.use flash()
+
+#app.use on our routes.
+app.use home
+app.use users
+app.use "/images", images
+app.use "/pages", pages
+app.use "/tags", tags
+
 app.use app.router
 app.use express.static path.join __dirname, "public"
 app.use express.errorHandler()
+
 # app.use (req, res) ->
 #   res.status 404
 #   res.render "pages/404", 
@@ -85,13 +94,6 @@ app.use express.errorHandler()
 #   res.render "pages/404", 
 #     title: "500: Internal Server Error"
 #     err: err
-
-#app.use on our routes.
-app.use users
-app.use home
-app.use "/images", images
-app.use pages
-app.use tags
 
 # go!
 server.listen conf.app.port, () ->
