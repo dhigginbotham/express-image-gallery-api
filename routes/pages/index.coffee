@@ -18,7 +18,6 @@ conf = require "../../conf"
 
 _views = path.join __dirname, "..", "..", "views"
 
-# app.configure () ->
 app.set "views", _views
 app.set "view engine", "mmm"
 app.set "layout", "layout"

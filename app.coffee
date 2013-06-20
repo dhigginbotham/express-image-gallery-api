@@ -46,7 +46,6 @@ tags = require "./routes/tags"
 _views = path.join __dirname, "views"
 
 # default application configuration
-# app.configure () ->
 app.set "port", conf.app.port || process.env.port
 app.use express.logger "dev"
 app.use express.compress()
