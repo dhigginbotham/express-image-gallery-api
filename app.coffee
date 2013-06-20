@@ -61,10 +61,10 @@ app.use express.bodyParser
 app.use express.methodOverride()
 app.use express.cookieParser()
 # SESSION STORE THROUGH MONGODB
-app.use express.session
-  store: store
-  secret: conf.seed.password
-  cookie: maxAge: 900000
+# app.use express.session
+#   store: store
+#   secret: conf.seed.password
+#   cookie: maxAge: 900000
 # SESSION STORE THROUGH COOKIES
 # app.use express.cookieSession
 #   key: conf.cookie.key
