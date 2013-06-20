@@ -169,7 +169,7 @@ nestableitem = (text,id) ->
 			},
 			{
 				type: 'i'
-				attributes: { 'class': 'icon-remove-circle', 'click': "removeicon", 'data-repeaterid': id, 'data-repeater-text': text }
+				attributes: { 'class': 'icon-white icon-remove-circle', 'click': "removeicon", 'data-repeaterid': id, 'data-repeater-text': text }
 			}, 
 			{
 				type: 'div'

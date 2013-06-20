@@ -11,9 +11,6 @@ scripts = module.exports =
     {src: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', name: 'jquery.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js', name: 'bootstrap.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: 'http://cdn.sockjs.org/sockjs-0.3.min.js', name: 'sockjs.js', where: 'foot', uri: null, type: 'js', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/pages/:slug/edit', type: 'js', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/images/:id/edit', type: 'js', exclude: null}
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/add', type: 'js', exclude: null}
     {src: '/js/lib/pages.client.js', name: 'pages.client.js', where: 'foot', uri: '/pages/:slug/edit', type: 'js', exclude: null}
     {src: '/js/lib/tags.class.js', name: 'tags.class.js', where: 'foot', uri: null, type: 'js', exclude: null}
@@ -21,11 +18,11 @@ scripts = module.exports =
     {src: '/js/lib/repeaterblock.js', name: 'repeaterblock.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '/js/vendor/jquery.nestable.js', name: 'jquery.nestable.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '/css/vendor/nestable.css', name: 'nestable.css', where: 'head', uri: null, type: 'css', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
-    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
+    {src: '/js/vendor/nicEdit.js', name: 'nicEdit.js', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/add', type: 'js', exclude: null}
     {src: '/js/lib/tags.client.js', name: 'tags.client.js', where: 'foot', uri: '/tags/:slug/edit', type: 'js', exclude: null}
     {src: '/js/vendor/dropzone.js', name: 'dropzone.js', where: 'foot', uri: null, type: 'js', exclude: null}
+    {src: '/css/vendor/dropzone.css', name: 'dropzone.css', where: 'head', uri: null, type: 'css', exclude: null}
     {src: '/js/lib/createElem.js', name: 'createElem.js', where: 'foot', uri: null, type: 'js', exclude: null}
     # {src: '/js/lib/client.upload.js', name: 'client.upload.js', where: 'foot', uri: '/', type: 'js', exclude: null} # need to get this sorted differently I suppose..
     {src: '/css/vendor/basic.css', name: 'basic.css', where: 'head', uri: '/', type: 'css', exclude: null}
