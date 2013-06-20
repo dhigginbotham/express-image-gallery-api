@@ -50,9 +50,8 @@ conf = ->
 
   # db settings:
 
-  # @param  {mongo}  String  mgive mongodb url
-  @db.mongo = {}
-  @db.mongo.uri = process.env.MGIVE_STRING or "mongodb://localhost/#{@app.initials}"
+  # @param  {mongoUrl}  String  mgive mongodb url
+  @db.mongoUrl = process.env.MGIVE_STRING or "mongodb://localhost/#{@app.initials}"
 
   # debug setting for app specific modules:
 

@@ -2,10 +2,6 @@
 
 # get this party started
 express = require "express"
-SessionStore = require("session-mongoose")(express)
-store = new SessionStore
-  url: "mongodb://localhost/session"
-  interval: 120000 # expiration check worker run interval in millisec (default: 60000)
 flash = require "connect-flash"
 # get this party started
 
@@ -13,10 +9,13 @@ sockjs = require "sockjs"
 sockjs_conf = require "./lib/sockjs/config"
 sockjs_app = require "./lib/sockjs"
 
-app = module.exports = express()
+app = express()
 server = require("http").createServer app
 
 sockjs_app.install sockjs_conf.server_opts, server
+
+# global connection sharing
+_db = require "./models/db"
 
 # native modules
 fs = require "fs"
@@ -24,17 +23,26 @@ path = require "path"
 
 conf = require "./conf"
 passport = require "passport"
+_passport = require "./lib/passport"
+
 
 # init required folders
 initPath = path.join __dirname, "public", "uploads"
 init = require("./conf/helpers").init initPath
 
 # routes, middleware, etc etc
-home = require "./routes/home"
 users = require "./routes/users"
+home = require "./routes/home"
 images = require "./routes/images"
 pages = require "./routes/pages"
 tags = require "./routes/tags"
+
+#app.use on our routes.
+app.use users
+app.use home
+app.use "/images", images
+app.use pages
+app.use tags
 
 _views = path.join __dirname, "views"
 
@@ -42,7 +50,7 @@ _views = path.join __dirname, "views"
 app.configure () ->
   app.set "port", conf.app.port || process.env.port
   app.use express.logger "dev"
-  app.use express.compress() 
+  app.use express.compress()
   if process.env.NODE_ENV == "development"
     app.set "port", conf.app.port
     app.use express.errorHandler
@@ -62,26 +70,19 @@ app.configure () ->
   app.use flash()
   app.use app.router
   app.use express.static path.join __dirname, "public"
-    # app.use express.errorHandler()
-    # app.use (req, res) ->
-    #   res.status 404
-    #   res.render "pages/404", 
-    #     title: "404: File Not Found"
-    # app.use (err, req, res, next) ->
-    #   res.status 500
-    #   res.render "pages/404", 
-    #     title: "500: Internal Server Error"
-    #     err: err
-
-#app.use on our routes.
-app.use home
-app.use users
-app.use "/images", images
-app.use "/pages", pages
-app.use "/tags", tags
+  app.use express.errorHandler()
+  # app.use (req, res) ->
+  #   res.status 404
+  #   res.render "pages/404", 
+  #     title: "404: File Not Found"
+  # app.use (err, req, res, next) ->
+  #   res.status 500
+  #   res.render "pages/404", 
+  #     title: "500: Internal Server Error"
+  #     err: err
 
 # go!
-server.listen app.get "port", () ->
+server.listen conf.app.port, () ->
   col = conf.colors()
   console.log "#{col.cyan}::#{col.reset} starting engine #{col.cyan}::#{col.reset} #{conf.app.welcome} #{col.cyan}::#{col.reset} "
 

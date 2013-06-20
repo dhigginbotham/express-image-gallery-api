@@ -10,6 +10,7 @@ routes = require "./routes"
 valid = require "./validate"
 
 pass = require "../../lib/passport"
+passport = require "passport"
 
 scripts = require "../../lib/assets"
 nav = require "../../lib/menus"
@@ -17,9 +18,21 @@ conf = require "../../conf"
 
 _views = path.join __dirname, "..", "..", "views"
 
-app.set "views", _views
-app.set "view engine", "mmm"
-app.set "layout", "layout"
+app.configure () ->
+  app.set "views", _views
+  app.set "view engine", "mmm"
+  app.set "layout", "layout"
+  app.use express.bodyParser 
+    keepExtensions: true
+  app.use express.methodOverride()
+  app.use express.cookieParser()
+  app.use express.cookieSession
+    key: conf.cookie.key
+    secret: conf.cookie.secret
+    cookie: maxAge: conf.cookie.maxAge
+  app.use passport.initialize()
+  app.use passport.session()
+  app.use flash()
 
 # images routes
 app.get "/", scripts.embed, nav.render, middle.pagesPagination, routes.view
