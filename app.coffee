@@ -23,26 +23,18 @@ path = require "path"
 
 conf = require "./conf"
 passport = require "passport"
-_passport = require "./lib/passport"
-
+# _passport = require "./lib/passport"
 
 # init required folders
 initPath = path.join __dirname, "public", "uploads"
 init = require("./conf/helpers").init initPath
 
 # routes, middleware, etc etc
-users = require "./routes/users"
 home = require "./routes/home"
+users = require "./routes/users"
 images = require "./routes/images"
 pages = require "./routes/pages"
 tags = require "./routes/tags"
-
-#app.use on our routes.
-app.use users
-app.use home
-app.use "/images", images
-app.use pages
-app.use tags
 
 _views = path.join __dirname, "views"
 
@@ -65,12 +57,12 @@ app.configure () ->
     key: conf.cookie.key
     secret: conf.cookie.secret
     cookie: maxAge: conf.cookie.maxAge
-  # app.use passport.initialize()
-  # app.use passport.session()
-  # app.use flash()
-  app.use app.router
+  app.use passport.initialize()
+  app.use passport.session()
+  app.use flash()
+  # app.use app.router
   app.use express.static path.join __dirname, "public"
-  app.use express.errorHandler()
+  # app.use express.errorHandler()
   # app.use (req, res) ->
   #   res.status 404
   #   res.render "pages/404", 
@@ -80,6 +72,13 @@ app.configure () ->
   #   res.render "pages/404", 
   #     title: "500: Internal Server Error"
   #     err: err
+
+#app.use on our routes.
+app.use home
+app.use users
+app.use "/images", images
+app.use pages
+app.use tags
 
 # go!
 server.listen conf.app.port, () ->
