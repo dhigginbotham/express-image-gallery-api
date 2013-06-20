@@ -2,6 +2,9 @@ express = require "express"
 app = module.exports = express()
 flash = require "connect-flash"
 
+# global connection sharing
+require "./models/db"
+
 fs = require "fs"
 path = require "path"
 

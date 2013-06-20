@@ -23,6 +23,6 @@ app.set "layout", "layout"
 
 # auth routes
 app.get "/login", nav.render, scripts.embed, routes.get.login
-app.post "/login", passport.authenticate("local", failureRedirect: "/", failureFlash: true), (req, res) -> 
+app.post "/login", passport.authenticate("local", failureRedirect: "/", failureFlash: false), (req, res) -> 
   res.redirect "/"
 app.get "/logout", nav.render, scripts.embed, routes.get.logout
