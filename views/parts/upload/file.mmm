@@ -1,0 +1,11 @@
+<div class="container">
+  <form method="post" id="droppable" action="/images/upload" class="dropzone jumbotron" enctype="multipart/form-data">
+    <div class="fallback">
+      <input name="file" type="file" multiple />
+    </div>
+  </form>
+</div>
+<script src="/js/vendor/dropzone.js"></script>
+{{! <script>
+  var myDropzone = new Dropzone("form#droppable", { url: "/upload"});
+</script> }}
