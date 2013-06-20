@@ -41,7 +41,7 @@ matchImg = (String) ->
   String.match /\.(jpe?g|gif|png)$/gi
 
 
-_init =
+makeUploadsFolder =
   exists: (err, folder, fn) ->
     fs.exists folder, (exists) ->
       if !exists
@@ -56,16 +56,14 @@ _init =
     else
       fn "folder is null", null
   init: (folder) ->
-    _init.exists null, folder, (err, data) ->
-      _init.make null, data, (err, added) ->
+    makeUploadsFolder.exists null, folder, (err, data) ->
+      makeUploadsFolder.make null, data, (err, added) ->
         if added != null
           console.log "#{cyan}Creating:#{reset} #{added}"
-        else
-          console.log "null"
 
 module.exports =
   trim: trim
   slugify: slugify
   uniqueId: uniqueId
   matchImg: matchImg
-  init: _init.init
+  init: makeUploadsFolder.init

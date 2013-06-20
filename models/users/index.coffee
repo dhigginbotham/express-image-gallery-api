@@ -64,7 +64,9 @@ UserSchema.plugin supergoose
 User = module.exports = db.model "User", UserSchema
 
 if conf.seed.init == true
+  col = new conf.colors()
   db.once "open", () ->
+
     User.findOne username: "admin", (err, seed) ->
       return console.log err if err?
       if !seed
@@ -79,4 +81,4 @@ if conf.seed.init == true
         admin.save (err) ->
           return err if err
       else
-        console.log "this user exists.."
+        console.log "!!! - #{col.red}User exists#{col.reset} - you can find this setting in './config/index.coffee' - !!!"
