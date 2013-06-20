@@ -48,9 +48,15 @@ div.repeaterblock div.dd ol.dd-list li.dd-item i:hover {
   opacity: 1;
   cursor: pointer;
 }
+div.repeaterblock div.dd ol.dd-list li.dd-item div.inputholder {
+  border-top: 1px solid #cccccc;
+  float: left;
+  width: 100%;
+  margin-top: 3px;
+}
 div.repeaterblock div.dd ol.dd-list li.dd-item div.inputholder .dropzone {
   min-height: 139px !important;
-  margin-top: 44px;
+  margin-top: 10px;
 }
 body {
   padding-bottom: 40px;
