@@ -88,6 +88,5 @@ scripts = module.exports =
           embed[ctx.where][ctx.type].push ctx
           count++
 
-    process.nextTick () ->
-      req.loaded = embed
-      next()
+    req.loaded = embed
+    next()

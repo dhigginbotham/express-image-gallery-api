@@ -30,8 +30,8 @@ app.configure () ->
     key: conf.cookie.key
     secret: conf.cookie.secret
     cookie: maxAge: conf.cookie.maxAge
-  app.use passport.initialize()
-  app.use passport.session()
+  # app.use passport.initialize()
+  # app.use passport.session()
   app.use flash()
 
 # images routes
