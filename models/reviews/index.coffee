@@ -9,22 +9,22 @@ image = Schema
     type: Date
     default: Date.now 
   uploadedby: 
-    type: Schema.types.ObjectId
+    type: Schema.Types.ObjectId
     ref: 'User'
   reviewReferences: [
-    type: Schema.types.ObjectId
+    type: Schema.Types.ObjectId
     ref: 'Review'
   ] 
   strainReferences: [
-    type: Schema.types.ObjectId
+    type: Schema.Types.ObjectId
     ref: 'Strain' 
   ]
   postReferences: [
-    type: Schema.types.ObjectId 
+    type: Schema.Types.ObjectId 
     ref: 'Post'
   ]
   tags: [
-    type: Schema.types.ObjectId
+    type: Schema.Types.ObjectId
     ref: 'Tag'
   ]
 
