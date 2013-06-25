@@ -27,7 +27,8 @@
           type: 'textarea',
           attributes: {
             'id': id,
-            'cols': '500'
+            'cols': '500',
+            'class': 'nicEditable'
           }
         };
       }
@@ -36,12 +37,26 @@
       name: 'Short Text Entry',
       obj: function(id) {
         return {
-          type: 'input',
+          type: 'div',
           attributes: {
-            'id': id,
-            'type': 'text',
-            'value': ''
-          }
+            'class': 'someclass'
+          },
+          contains: [
+            {
+              type: 'label',
+              attributes: {
+                'for': id
+              },
+              contains: ["Insert Value Here:"]
+            }, {
+              type: 'input',
+              attributes: {
+                'type': 'text',
+                'id': id,
+                'value': ''
+              }
+            }
+          ]
         };
       }
     },
@@ -59,7 +74,7 @@
         };
       }
     },
-    'tags': {
+    'features': {
       name: 'Features',
       obj: function(id) {
         return {
@@ -228,7 +243,7 @@
         }, {
           type: 'i',
           attributes: {
-            'class': 'icon-white icon-remove-circle',
+            'class': 'icon-remove-circle repeater-remover',
             'click': "removeicon",
             'data-repeaterid': id,
             'data-repeater-text': text

@@ -21,17 +21,31 @@ repeatertypes =
 	  		attributes: { 
 	  			'id': id 
 	  			'cols': '500'
+	  			'class': 'nicEditable'
 	  		}
   		}
   'textshort': 
   	name: 'Short Text Entry'
   	obj: (id) -> 
-  		return {
-	  		type: 'input'
-				attributes:
-					'id': id 
-					'type': 'text'
-					'value': ''
+  		return { 
+  			type: 'div'
+  			attributes:
+  				'class': 'someclass'
+  			contains: [
+  				{
+  					type: 'label'
+  					attributes: 
+  						'for': id
+  					contains: ["Insert Value Here:"]
+  				},
+  				{
+  					type: 'input'
+  					attributes:
+  						'type': 'text'
+  						'id': id
+  						'value': ''
+  				}
+  			]
   		}
   'list': # utilize taggable and repeaterblock to create a simple organizable list w/ different numbering styles available
   	name: 'List of Items'
@@ -44,7 +58,7 @@ repeatertypes =
 					'class': 'taggable'
 					'value': ''
   		}
-  'tags':
+  'features':
   	name: 'Features'
   	obj: (id) -> 
   		return {
@@ -169,7 +183,7 @@ nestableitem = (text,id) ->
 			},
 			{
 				type: 'i'
-				attributes: { 'class': 'icon-white icon-remove-circle', 'click': "removeicon", 'data-repeaterid': id, 'data-repeater-text': text }
+				attributes: { 'class': 'icon-remove-circle repeater-remover', 'click': "removeicon", 'data-repeaterid': id, 'data-repeater-text': text }
 			}, 
 			{
 				type: 'div'

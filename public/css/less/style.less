@@ -34,7 +34,7 @@ div.repeaterblock {
           margin-left: 5px;
           float: right;
         }
-        i { 
+        i.repeater-remover { 
           float: right; 
           font-size: 1.40em;
           border: 1px solid rgb(211,211,211);
@@ -52,13 +52,18 @@ div.repeaterblock {
           } 
         }
         div.inputholder { 
-          border-top: 1px solid rgb(204, 204, 204);
+          border-top: 1px solid #cccccc;
           float: left;
           width: 100%;
           margin-top: 3px;
+          padding: 10px 0px;
           .dropzone { 
             min-height: 139px !important;
             margin-top: 10px;
+          }
+          textarea.nicEditable {
+            width: 100%;
+            min-height: 200px;            
           }
         }
       }
