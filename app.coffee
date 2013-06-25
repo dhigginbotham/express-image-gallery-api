@@ -58,6 +58,7 @@ app.use express.favicon()
 app.use express.bodyParser 
   keepExtensions: true
 app.use express.methodOverride()
+app.use express.static path.join __dirname, "public"
 app.use express.cookieParser()
 # SESSION STORE THROUGH MONGODB
 app.use express.session
@@ -81,7 +82,6 @@ app.use "/pages", pages
 app.use "/tags", tags
 
 app.use app.router
-app.use express.static path.join __dirname, "public"
 app.use express.errorHandler()
 
 # app.use (req, res) ->

@@ -40,7 +40,7 @@ conf = ->
 
   # @param  {init}  Boolean  set this to true to create an admin account
   # @param  {password}  String  default password for the app
-  @seed.init = false
+  @seed.init = true # leave this to default as true, otherwise people will get confused.
   @seed.password = if process.env.NODE_PASS? then process.env.NODE_PASS else "super-secret-passw0rd"
 
   # users settings:
